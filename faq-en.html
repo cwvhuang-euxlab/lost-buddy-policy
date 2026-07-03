@@ -33,29 +33,6 @@
             padding-bottom: 15px;
         }
 
-        .faq-controls {
-            margin-bottom: 30px;
-        }
-
-        /* Combined Plus/Minus Control Button */
-        .btn-faq-toggle {
-            background-color: transparent;
-            color: #201F6A;
-            border: 1px solid #201F6A;
-            padding: 6px 16px;
-            font-size: 0.85rem;
-            border-radius: 20px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-faq-toggle:hover {
-            background-color: #201F6A;
-            color: #ffffff;
-        }
 
         h2 {
             color: #201F6A;
@@ -208,12 +185,6 @@
                         pet or a kind-hearted citizen keeping an eye out on the streets, we have compiled the most
                         common operational questions and our design insights below.</p>
 
-                    <div class="faq-controls">
-                        <button id="faqToggleButton" class="btn btn-faq-toggle" onclick="handleToggleAll()">
-                            <span id="faqToggleIcon">＋</span> <span id="faqToggleText">Expand All</span>
-                        </button>
-                    </div>
-
                     <h2>Search & Rescue</h2>
                     <div class="accordion" id="accordionSeeking">
                         <div class="accordion-item">
@@ -228,7 +199,8 @@
                                     <p>The most crucial details are <strong>recent, clear photos</strong> (showing
                                         distinct facial features, body proportions, and recognizable markings), the
                                         <strong>time of disappearance</strong>, and the <strong>last known
-                                            location</strong>.</p>
+                                            location</strong>.
+                                    </p>
                                     <p>In addition to completing all required fields, we highly recommend describing
                                         your dog's personality and tips for approaching them (e.g., highly motivated by
                                         food, friendly, or easily startled/wary). These details help well-meaning
@@ -271,7 +243,8 @@
                                     <p>Please go to that specific dog card, tap "Update Status", and change it to
                                         <strong>"Found"</strong>. Let us share the joy of your reunion while ensuring
                                         platform resources stay focused on the pets that are still searching for their
-                                        way home.</p>
+                                        way home.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -499,56 +472,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        function handleToggleAll() {
-            const toggleIcon = document.getElementById('faqToggleIcon');
-            const toggleText = document.getElementById('faqToggleText');
-            const collapseElements = document.querySelectorAll('.accordion-collapse');
-
-            // 1. Precisely determine if any item is currently collapsed
-            let hasCollapsed = false;
-            collapseElements.forEach(el => {
-                if (!el.classList.contains('show')) {
-                    hasCollapsed = true;
-                }
-            });
-
-            // 2. Traverse each item, synchronizing JS state and CSS Class
-            collapseElements.forEach(el => {
-                const btn = document.querySelector(`[data-bs-target="#${el.id}"]`) || document.querySelector(`[aria-controls="${el.id}"]`);
-
-                const existingInstance = bootstrap.Collapse.getInstance(el);
-                if (existingInstance) {
-                    existingInstance.dispose();
-                }
-
-                const newInstance = new bootstrap.Collapse(el, { toggle: false });
-
-                if (hasCollapsed) {
-                    newInstance.show();
-                    if (btn) {
-                        btn.classList.remove('collapsed'); // Trigger purple background & minus sign
-                        btn.setAttribute('aria-expanded', 'true');
-                    }
-                } else {
-                    newInstance.hide();
-                    if (btn) {
-                        btn.classList.add('collapsed'); // Restore white background & plus sign
-                        btn.setAttribute('aria-expanded', 'false');
-                    }
-                }
-            });
-
-            // 3. Hardcode English button text directly
-            if (hasCollapsed) {
-                toggleIcon.innerText = '－';
-                toggleText.innerText = 'Collapse All';
-            } else {
-                toggleIcon.innerText = '＋';
-                toggleText.innerText = 'Expand All';
-            }
-        }
-    </script>
 </body>
 
 </html>
