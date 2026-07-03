@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Buddy - 常見問題 FAQ</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #EEF0FF;
+            color: #2E3238;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+        }
+
+        .policy-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #201F6A;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #C7D2DA;
+            padding-bottom: 15px;
+        }
+
+        .faq-controls {
+            margin-bottom: 30px;
+        }
+
+        /* 整合後的加減號控制按鈕 */
+        .btn-faq-toggle {
+            background-color: transparent;
+            color: #201F6A;
+            border: 1px solid #201F6A;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-faq-toggle:hover {
+            background-color: #201F6A;
+            color: #ffffff;
+        }
+
+        h2 {
+            color: #201F6A;
+            font-size: 1.4rem;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 1.4rem;
+            background-color: #201F6A;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .accordion {
+            --bs-accordion-border-color: #E2E8F0;
+            --bs-accordion-btn-focus-box-shadow: none;
+        }
+
+        /* 修正後的項目樣式 */
+        .accordion-item {
+            border: 1px solid #E2E8F0 !important;
+            /* 強制確保四邊都有獨立邊框 */
+            border-radius: 8px !important;
+            /* 確保圓角完整 */
+            margin-bottom: 16px !important;
+            /* 用明確的正邊距推開，不與上下項目重疊 */
+            overflow: hidden;
+            /* 確保內襯的米色背景不會超出圓角 */
+        }
+
+        /* 額外補強：移除 Bootstrap 預設針對相鄰項目的負邊距覆蓋 */
+        .accordion-item+.accordion-item {
+            margin-top: 0 !important;
+        }
+
+        /* 防止在動態收合（collapsing）時頂部邊框被微像素裁切 */
+        .accordion-collapse {
+            border: none !important;
+        }
+
+        .accordion-button {
+            color: #2E3238;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 1rem 1.25rem;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 💡 移除 Bootstrap 5 預設的旋轉下箭頭 */
+        .accordion-button::after {
+            display: none !important;
+        }
+
+        /* 💡 自訂右側的加減號偽元素圖示 */
+        .accordion-button::before {
+            content: "＋";
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #9FADBD;
+            order: 2;
+            /* 移到最右側 */
+            transition: transform 0.2s ease;
+        }
+
+        /* 💡 當項目「展開」（非 collapsed 狀態）時，圖示自動切換為減號 */
+        .accordion-button:not(.collapsed)::before {
+            content: "－";
+            color: #201F6A;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #EEF0FF;
+            color: #201F6A;
+            box-shadow: none;
+        }
+
+        .accordion-body {
+            background-color: #FFFFFF;
+            color: #2E3238;
+            font-size: 0.95rem;
+            padding: 1.25rem;
+            border-top: 1px solid #ECF1F3;
+        }
+
+        .accordion-body ul,
+        .accordion-body ol {
+            padding-left: 20px;
+        }
+
+        .accordion-body li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #201F6A;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #4338CA;
+        }
+
+        @media (max-width: 768px) {
+            .policy-container {
+                padding: 20px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+                margin-top: 25px;
+            }
+
+            .accordion-button {
+                font-size: 0.95rem;
+                padding: 0.85rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-11">
+
+                <div class="policy-container">
+
+                    <h1>Lost Buddy 常見問題 FAQ</h1>
+                    <p class="text-muted">最後更新日期：2026 年 7 月 3 日</p>
+                    <p>歡迎來到 Lost Buddy 常見問題中心。不論你是正在焦急尋找毛孩的飼主，還是熱心幫忙留意街頭的暖心民眾，我們都將最常遇到的操作疑問與設計初衷整理在下方。</p>
+
+                    <div class="faq-controls">
+                        <button id="faqToggleButton" class="btn btn-faq-toggle" onclick="handleToggleAll()">
+                            <span id="faqToggleIcon">＋</span> <span id="faqToggleText">全部展開</span>
+                        </button>
+                    </div>
+
+                    <h2>協尋相關</h2>
+                    <div class="accordion" id="accordionSeeking">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ1">
+                                    Q：我的狗狗走失了，發布協尋需要提供哪些資訊？
+                                </button>
+                            </h3>
+                            <div id="seekQ1" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <p>最重要的是<strong>近期的清晰照片</strong>（能看清五官、身形比例與好辨識的特徵）、<strong>走失時間</strong>與<strong>走失地點</strong>。
+                                    </p>
+                                    <p>除了將頁面上的欄位填寫完整，也建議在內文補充狗狗的個性與親近訣竅（例如：很愛吃、親人、或防備心較重）。這些細節能幫助熱心民眾用正確的方式接近牠，避免驚嚇到狗狗。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ2">
+                                    Q：如何更快找到狗狗？
+                                </button>
+                            </h3>
+                            <div id="seekQ2" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>主動篩選比對：</strong> 建議持續到 App 的「發現狗狗」分頁，利用清單或地圖模式的條件篩選，比對是否有符合特徵的通報資訊。
+                                        </li>
+                                        <li><strong>即時更新動態：</strong>
+                                            若你透過監視器或熱心人士私下通報得知了最新行蹤，請進到你建立的狗狗卡片點選「更新動態」，補上最新時間與地點。這樣一來，附近民眾就能立刻幫忙留意。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ3">
+                                    Q：如果順利找到狗狗了，我該怎麼處理刊登資訊？
+                                </button>
+                            </h3>
+                            <div id="seekQ3" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <p>請進到該則狗狗卡片點選「更新動態」，將狀態改為<strong>「已找到」</strong>。讓我們一起分享這份團聚的喜悅，同時也能讓平台資源持續集中在仍在找家的狗狗。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>通報相關</h2>
+                    <div class="accordion" id="accordionReporting">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#reportQ1">
+                                    Q：我看到疑似走失的狗狗，該怎麼通報？
+                                </button>
+                            </h3>
+                            <div id="reportQ1" class="accordion-collapse collapse" data-bs-parent="#accordionReporting">
+                                <div class="accordion-body">
+                                    <p>請先註冊或登入帳號，並點選「發現狗狗」。接著上傳照片、填寫毛色與品種，並填寫當下的時間、位置與特徵。送出後，飼主即可透過條件篩選，第一時間比對這條關鍵線索。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>使用與功能</h2>
+                    <div class="accordion" id="accordionFeatures">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ1">
+                                    Q：上傳照片有數量限制嗎？為什麼有時候上傳有點慢？
+                                </button>
+                            </h3>
+                            <div id="featQ1" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>每則刊登最多可上傳 <strong>4 張照片</strong>。建議挑選最能代表狗狗、能有效識別外觀特徵的照片。</p>
+                                    <p>如果上傳稍慢，可能是當前網路訊號較弱，或是系統正在後台為你最佳化圖片解析度。可以嘗試移動到訊號較好的地方試試看！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ2">
+                                    Q：我留下的聯絡電話和社群連結，會被不懷好意的人看到嗎？
+                                </button>
+                            </h3>
+                            <div id="featQ2" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>為了讓走失狗狗獲得最大程度的曝光，目前 App
+                                        開放免登入瀏覽。我們非常重視你的隱私與安全，平台僅要求填寫暱稱，聯絡電話與社群連結皆為選填，你可以自行評估是否要留下這些資訊。</p>
+                                    <p><strong>安全小建議：</strong> 若有留下社群連結，建議在收到回覆、確認對方身分與意圖後，再決定是否提供更私人的聯絡方式。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ3">
+                                    Q：發現可疑或不實內容，可以怎麼處理？
+                                </button>
+                            </h3>
+                            <div id="featQ3" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>可透過該則刊登資訊旁的「檢舉」功能（旗幟圖示）回報。我們在收到通報後會立即進行人工審核，並在必要時將內容下架，確保平台資訊的準確性。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ4">
+                                    Q：有人更新狗狗動態時，我會主動收到通知嗎？
+                                </button>
+                            </h3>
+                            <div id="featQ4" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>目前版本尚未支援即時推播功能。</p>
+                                    <p>我們優先將重心放在建置核心的比對與通報功能上，推播功能是我們未來非常想加入、也正在努力開發的目標。在這段期間，建議飼主與熱心民眾可以不定時開啟
+                                        App，主動查看最新動態與地圖線索，才不會錯過關鍵的更新資訊。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ5">
+                                    Q：我可以刪除帳號與過往的發布紀錄嗎？
+                                </button>
+                            </h3>
+                            <div id="featQ5" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>可以的。我們完全尊重你的隱私與資料自主權。</p>
+                                    <p>你可以隨時到 App 的「個人設定」中選擇刪除帳號。一旦確認刪除，你的個人帳號資訊、綁定的聯絡方式都將從資料庫中永久移除且無法復原。</p>
+                                    <p>為了不讓過去累積的協尋線索中斷，你曾發布過的狗狗刊登資訊與通報動態仍會保留在平台上，但會全數自動轉為「匿名」處理，不會與你的任何個人隱私有關聯。詳細的資料處理機制，你可以參考我們的<a
+                                            href="delete-account-zh.html" target="_blank">帳號刪除政策</a>。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>關於 Lost Buddy</h2>
+                    <div class="accordion" id="accordionAbout">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ1">
+                                    Q：這個 App 是誰開發的？
+                                </button>
+                            </h3>
+                            <div id="aboutQ1" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>Lost Buddy 由一位 UX（使用者經驗）設計師與一位 UI（介面）設計師共同打造。
+                                    </p>
+                                    <p>我們在長期關注走失狗狗協尋資訊的過程中，發現許多主人已經非常努力，但仍常遇到幾個共同的困難：
+                                    </p>
+                                    <ul>
+                                        <li>資訊分散在不同的社群平台與社團，最新進度與重複貼文不易確認。</li>
+                                        <li>線索容易被新的貼文與訊息淹沒，重要更新很快就看不到。</li>
+                                        <li>缺乏有效的比對方式，目擊線索仍需花費時間逐一比對照片、特徵與位置。</li>
+                                    </ul>
+                                    <p>因此，我們希望透過更好的資訊整理、條件篩選與呈現方式，讓尋找的過程更有效率，也讓每一條線索、每一份努力，都更有機會發揮價值。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ2">
+                                    Q：未來會收費或加入大量廣告嗎？
+                                </button>
+                            </h3>
+                            <div id="aboutQ2" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p><strong>協尋與通報核心功能將永遠免費。</strong></p>
+                                    <p>我們不想在主人焦慮、大眾熱心通報的黃金時間裡，塞滿突兀的廣告。目前 App
+                                        的開發與上架皆由設計師自掏腰包進行。未來如果營運成本（如伺服器與資料庫）增加，可能會採取自由贊助的方式維持運作。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ3">
+                                    Q：我可以如何支持這個 App？
+                                </button>
+                            </h3>
+                            <div id="aboutQ3" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>如果你覺得 Lost Buddy 有帶來幫助，請幫我們分享給身邊的毛孩社群、給予 5 星好評或撰寫評論！這對獨立開發的我們是極大的鼓勵。</p>
+                                    <p>目前 App
+                                        還在草創階段，還有很多想做但受限於資源的功能，例如：即時推播、路徑範圍通報、支援更多照片、協尋經驗分享等。但最實質的支持，是當你發現生活圈裡有疑似走失的毛孩時，願意幫忙多留意一眼、協助刊登。<strong>你的舉手之勞，就是飼主最大的希望。</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ4">
+                                    Q：如果發現系統有 Bug 或有功能建議，該怎麼聯絡你們？
+                                </button>
+                            </h3>
+                            <div id="aboutQ4" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>非常歡迎！你可以透過 App 內的「意見回饋」或直接寫信到我們的開發者信箱：<a
+                                            href="mailto:lost.buddy.euxlab@gmail.com">lost.buddy.euxlab@gmail.com</a>。
+                                    </p>
+                                    <p>因為是獨立開發，回應與修正需要一點時間，但每一條真心的建議我們都會認真閱讀。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function handleToggleAll() {
+            const toggleIcon = document.getElementById('faqToggleIcon');
+            const toggleText = document.getElementById('faqToggleText');
+            const collapseElements = document.querySelectorAll('.accordion-collapse');
+
+            // 1. 精準判斷目前畫面上，是不是「還有任何一個項目是收合狀態」
+            let hasCollapsed = false;
+            collapseElements.forEach(el => {
+                if (!el.classList.contains('show')) {
+                    hasCollapsed = true;
+                }
+            });
+
+            // 2. 核心 Bug 修正：走訪每個項目，徹底清除舊的暫存實例，避免狀態衝突
+            collapseElements.forEach(el => {
+                // 如果該項目曾經被使用者手動點擊過，先調用並銷毀它的 instance
+                const existingInstance = bootstrap.Collapse.getInstance(el);
+                if (existingInstance) {
+                    existingInstance.dispose();
+                }
+
+                // 重新賦予乾淨、一致的全新狀態指令
+                const newInstance = new bootstrap.Collapse(el, { toggle: false });
+                if (hasCollapsed) {
+                    newInstance.show();
+                } else {
+                    newInstance.hide();
+                }
+            });
+
+            // 3. 同步將上方的控制按鈕，對齊為對應的加減圖示與文字
+            if (hasCollapsed) {
+                toggleIcon.innerText = '－';
+                toggleText.innerText = '全部收合';
+            } else {
+                toggleIcon.innerText = '＋';
+                toggleText.innerText = '全部展開';
+            }
+        }
+    </script>
+</body>
+
+</html>

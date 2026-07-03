@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Buddy - FAQ</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #EEF0FF;
+            color: #2E3238;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+        }
+
+        .policy-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #201F6A;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #C7D2DA;
+            padding-bottom: 15px;
+        }
+
+        .faq-controls {
+            margin-bottom: 30px;
+        }
+
+        /* Combined Plus/Minus Control Button */
+        .btn-faq-toggle {
+            background-color: transparent;
+            color: #201F6A;
+            border: 1px solid #201F6A;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-faq-toggle:hover {
+            background-color: #201F6A;
+            color: #ffffff;
+        }
+
+        h2 {
+            color: #201F6A;
+            font-size: 1.4rem;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 1.4rem;
+            background-color: #201F6A;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .accordion {
+            --bs-accordion-border-color: #E2E8F0;
+            --bs-accordion-btn-focus-box-shadow: none;
+        }
+
+        /* Fixed Item Style: Prevents borders from disappearing upon collapse */
+        .accordion-item {
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 8px !important;
+            margin-bottom: 16px !important;
+            overflow: hidden;
+        }
+
+        /* Prevent Bootstrap's default negative margin behavior for adjacent items */
+        .accordion-item+.accordion-item {
+            margin-top: 0 !important;
+        }
+
+        /* Prevent top border clipping during collapse animations */
+        .accordion-collapse {
+            border: none !important;
+        }
+
+        .accordion-button {
+            color: #2E3238;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 1rem 1.25rem;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Hide Bootstrap 5 default chevron */
+        .accordion-button::after {
+            display: none !important;
+        }
+
+        /* Custom Plus/Minus Pseudo-elements */
+        .accordion-button::before {
+            content: "＋";
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #9FADBD;
+            order: 2;
+            transition: transform 0.2s ease;
+        }
+
+        /* Toggle to Minus when expanded */
+        .accordion-button:not(.collapsed)::before {
+            content: "－";
+            color: #201F6A;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #EEF0FF;
+            color: #201F6A;
+            box-shadow: none;
+        }
+
+        .accordion-body {
+            background-color: #FFFFFF;
+            color: #2E3238;
+            font-size: 0.95rem;
+            padding: 1.25rem;
+            border-top: 1px solid #ECF1F3;
+        }
+
+        .accordion-body ul,
+        .accordion-body ol {
+            padding-left: 20px;
+        }
+
+        .accordion-body li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #201F6A;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #4338CA;
+        }
+
+        @media (max-width: 768px) {
+            .policy-container {
+                padding: 20px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+                margin-top: 25px;
+            }
+
+            .accordion-button {
+                font-size: 0.95rem;
+                padding: 0.85rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-11">
+
+                <div class="policy-container">
+
+                    <h1>Lost Buddy FAQ</h1>
+                    <p class="text-muted">Last Updated: July 3, 2026</p>
+                    <p>Welcome to the Lost Buddy FAQ Center. Whether you are an anxious owner searching for your beloved pet or a kind-hearted citizen keeping an eye out on the streets, we have compiled the most common operational questions and our design insights below.</p>
+
+                    <div class="faq-controls">
+                        <button id="faqToggleButton" class="btn btn-faq-toggle" onclick="handleToggleAll()">
+                            <span id="faqToggleIcon">＋</span> <span id="faqToggleText">Expand All</span>
+                        </button>
+                    </div>
+
+                    <h2>Search & Rescue</h2>
+                    <div class="accordion" id="accordionSeeking">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ1">
+                                    Q: My dog is lost. What information do I need to provide when creating a post?
+                                </button>
+                            </h3>
+                            <div id="seekQ1" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <p>The most crucial details are <strong>recent, clear photos</strong> (showing distinct facial features, body proportions, and recognizable markings), the <strong>time of disappearance</strong>, and the <strong>last known location</strong>.</p>
+                                    <p>In addition to completing all required fields, we highly recommend describing your dog's personality and tips for approaching them (e.g., highly motivated by food, friendly, or easily startled/wary). These details help well-meaning citizens approach your pet correctly without scaring them away.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ2">
+                                    Q: How can I find my dog faster?
+                                </button>
+                            </h3>
+                            <div id="seekQ2" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li><strong>Proactive Filtering & Matching:</strong> We recommend regularly checking the "Found Dogs" tab in the App. Use the filter criteria in list or map view to check for any matching sighting reports.</li>
+                                        <li><strong>Real-time Status Updates:</strong> If you receive new leads from CCTV footage or private tips from helpful citizens, go to the dog card you created and tap "Update Status" to log the latest time and location. This keeps nearby residents informed to watch the right area.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#seekQ3">
+                                    Q: What should I do with my post once my dog is safely found?
+                                </button>
+                            </h3>
+                            <div id="seekQ3" class="accordion-collapse collapse" data-bs-parent="#accordionSeeking">
+                                <div class="accordion-body">
+                                    <p>Please go to that specific dog card, tap "Update Status", and change it to <strong>"Found"</strong>. Let us share the joy of your reunion while ensuring platform resources stay focused on the pets that are still searching for their way home.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Sighting Reports</h2>
+                    <div class="accordion" id="accordionReporting">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#reportQ1">
+                                    Q: I spotted a dog that looks lost. How do I report it?
+                                </button>
+                            </h3>
+                            <div id="reportQ1" class="accordion-collapse collapse" data-bs-parent="#accordionReporting">
+                                <div class="accordion-body">
+                                    <p>Please sign up or log in to your account and tap "Found Dogs". Upload a photo, indicate the coat color and breed, and fill in the current time, location, and characteristics. Once submitted, owners can instantly cross-reference this vital clue through filter criteria.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>App Usage & Features</h2>
+                    <div class="accordion" id="accordionFeatures">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ1">
+                                    Q: Is there a limit on the number of photos I can upload? Why is it slow sometimes?
+                                </button>
+                            </h3>
+                            <div id="featQ1" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>You can upload a maximum of <strong>4 photos</strong> per post. We suggest picking shots that best represent your dog and effectively display its identifying traits.</p>
+                                    <p>If the upload feels slow, it might be due to a weak network signal or because our system is optimizing the image resolution in the background. Try moving to an area with better reception!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ2">
+                                    Q: Will my contact number or social media links be visible to malicious users?
+                                </button>
+                            </h3>
+                            <div id="featQ2" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>To maximize exposure for lost pets, the App currently allows browsing without logging in. We take your privacy and safety very seriously; the platform only requires a nickname. Phone numbers and social links are entirely optional—you can choose whether to provide them.</p>
+                                    <p><strong>Safety Tip:</strong> If you do leave a social media link, we recommend verifying the identity and intent of anyone who reaches out before sharing more personal contact details.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ3">
+                                    Q: What should I do if I find suspicious or false content?
+                                </button>
+                            </h3>
+                            <div id="featQ3" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>You can report it using the "Report" feature (the flag icon) next to the posting. We will conduct an immediate manual review upon receiving a report and remove the content if necessary to maintain the accuracy of platform information.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ4">
+                                    Q: Will I get push notifications automatically when someone updates a dog's status?
+                                </button>
+                            </h3>
+                            <div id="featQ4" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>The current version does not support real-time push notifications yet.</p>
+                                    <p>We prioritized building the core matching and sighting report functionalities first. Push notifications are a major goal we are actively working toward for future updates. In the meantime, we suggest owners and helpers open the App periodically to check the map view and latest updates so you don't miss any critical leads.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#featQ5">
+                                    Q: Can I delete my account and past posting records?
+                                </button>
+                            </h3>
+                            <div id="featQ5" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                                <div class="accordion-body">
+                                    <p>Yes, absolutely. We fully respect your privacy and data autonomy.</p>
+                                    <p>You can choose to delete your account at any time under "Settings" in the App. Once confirmed, your personal profile info and linked contact methods will be permanently wiped from our database and cannot be recovered.</p>
+                                    <p>To avoid disrupting ongoing searches, your past dog listings and sighting logs will remain on the platform but will be completely "anonymized," completely unlinked from your personal identity. For detailed data deletion mechanisms, please refer to our <a href="delete-account-en.html" target="_blank">Account Deletion Policy</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>About Lost Buddy</h2>
+                    <div class="accordion" id="accordionAbout">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ1">
+                                    Q: Who developed this App?
+                                </button>
+                            </h3>
+                            <div id="aboutQ1" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>Lost Buddy is co-created by a UX (User Experience) designer and a UI (User Interface) designer.</p>
+                                    <p>Through our long-term monitoring of lost dog notices, we observed that while owners try their absolute best, they often run into a few common hurdles:</p>
+                                    <ul>
+                                        <li>Information is scattered across different social media platforms and groups, making latest updates and duplicate posts hard to track.</li>
+                                        <li>Clues easily get buried by incoming feeds and messages, causing important updates to disappear from view quickly.</li>
+                                        <li>A lack of efficient filtering options means cross-referencing sightings still takes hours of sorting through photos, traits, and locations manually.</li>
+                                    </ul>
+                                    <p>Therefore, we hope to leverage better information architecture, condition filtering, and optimized data presentation to make the search process more efficient—giving every clue and every ounce of effort a better chance to make an impact.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ2">
+                                    Q: Will the app charge fees or introduce heavy ads in the future?
+                                </button>
+                            </h3>
+                            <div id="aboutQ2" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p><strong>The core search, rescue, and reporting features will always remain free.</strong></p>
+                                    <p>The last thing we want to do is clutter the golden window of rescue with intrusive ads while owners are anxious and the public is trying to help. Currently, app development and store deployment costs are funded entirely out-of-pocket by us. If operational overhead (like servers and databases) grows significantly down the road, we may introduce voluntary donations to keep it running.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ3">
+                                    Q: How can I support this App?
+                                </button>
+                            </h3>
+                            <div id="aboutQ3" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>If you find Lost Buddy helpful, please share it with your pet-loving communities, leave us a 5-star rating, or write a review! It serves as an immense encouragement to an independent team like us.</p>
+                                    <p>As the App is still in its early stages, there are many resource-intensive features we are eager to implement, such as real-time push alerts, search-radius notices, expanded photo support, and recovery story sharing. However, the most practical support you can offer is simply keeping an extra eye out on your daily commute and logging a report if you see a wandering pet. <strong>Your small gesture represents an owner's greatest hope.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#aboutQ4">
+                                    Q: How do I contact you if I spot a bug or have feature suggestions?
+                                </button>
+                            </h3>
+                            <div id="aboutQ4" class="accordion-collapse collapse" data-bs-parent="#accordionAbout">
+                                <div class="accordion-body">
+                                    <p>We'd love to hear from you! You can reach us via the "Feedback" section within the App or write directly to our developer inbox: <a href="mailto:lost.buddy.euxlab@gmail.com">lost.buddy.euxlab@gmail.com</a>.</p>
+                                    <p>Since this is an independent project, responding and patching might take a little time, but we promise to read through every genuine piece of feedback thoughtfully.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function handleToggleAll() {
+            const toggleIcon = document.getElementById('faqToggleIcon');
+            const toggleText = document.getElementById('faqToggleText');
+            const collapseElements = document.querySelectorAll('.accordion-collapse');
+
+            // 1. Precisely determine if any item is currently collapsed
+            let hasCollapsed = false;
+            collapseElements.forEach(el => {
+                if (!el.classList.contains('show')) {
+                    hasCollapsed = true;
+                }
+            });
+
+            // 2. Core Bug Fix: Safely dispose of instances to prevent toggling conflicts
+            collapseElements.forEach(el => {
+                const existingInstance = bootstrap.Collapse.getInstance(el);
+                if (existingInstance) {
+                    existingInstance.dispose();
+                }
+
+                const newInstance = new bootstrap.Collapse(el, { toggle: false });
+                if (hasCollapsed) {
+                    newInstance.show();
+                } else {
+                    newInstance.hide();
+                }
+            });
+
+            // 3. Synchronize button state text and icons
+            if (hasCollapsed) {
+                toggleIcon.innerText = '－';
+                toggleText.innerText = 'Collapse All';
+            } else {
+                toggleIcon.innerText = '＋';
+                toggleText.innerText = 'Expand All';
+            }
+        }
+    </script>
+</body>
+
+</html>
