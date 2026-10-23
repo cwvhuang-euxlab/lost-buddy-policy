@@ -113,22 +113,14 @@
       color: #4338CA !important;
     }
 
-    #bottom-sheet .bg-amber-100 {
-      background-color: #E3E6FF !important;
-    }
-
-    #bottom-sheet .text-amber-800,
-    #bottom-sheet .text-amber-600,
-    #bottom-sheet .text-amber-700 {
-      color: #201F6A !important;
-    }
-
     /* Bottom sheet */
     .bottom-sheet {
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       border-top-left-radius: var(--card-radius);
       border-top-right-radius: var(--card-radius);
       color: var(--color-text);
+      /* 增加底部安全區域 Padding + 額外 40px */
+      padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
     }
 
     .bottom-sheet.closed {
@@ -147,7 +139,6 @@
     }
 
     #sheet-policy-count {
-      background-color: #E3E6FF !important;
       color: var(--color-primary) !important;
     }
 
@@ -290,9 +281,6 @@
         <h2 id="sheet-county-name" class="text-lg font-bold text-stone-900">
           請選擇縣市
         </h2>
-        <span id="sheet-policy-count" class="text-sm px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">
-          0 個政見
-        </span>
       </div>
       
       <button id="close-sheet-btn" class="w-8 h-8 rounded-full bg-stone-200/70 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition focus:outline-none">
@@ -300,12 +288,21 @@
       </button>
     </div>
 
-    <!-- 政見卡片展示區 -->
-    <div id="sheet-card-container" class="p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-3 max-h-[50vh] flex-1">
-      <!-- 候選人卡片透過 JavaScript 自動生成 -->
+    <!-- 內容滾動區 -->
+    <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 space-y-3">
+      <!-- 單純一行的數量文字（無圓角、無背景） -->
+      <p id="sheet-policy-count" class="text-sm font-semibold text-stone-700">
+        共 0 位候選人提出具體政見
+      </p>
+
+      <!-- 政見卡片容器 -->
+      <div id="sheet-card-container" class="space-y-3">
+        <!-- 候選人卡片透過 JavaScript 自動生成 -->
+      </div>
     </div>
 
-    <div class="p-3 text-center text-xs text-stone-500 border-t border-stone-100 bg-stone-50 space-y-0.5 shrink-0">
+    <!-- 底部三行註解（齊左排版） -->
+    <div class="p-4 text-left text-xs text-stone-500 border-t border-stone-100 bg-stone-50 space-y-0.5 shrink-0">
       <p>依姓氏筆畫排列順序</p>
       <p>未列出的候選人為尚未在官方平台正式陳述政策</p>
       <p>資料為開放公眾資訊整理，完整政見請以官方選舉公報為準</p>
@@ -605,7 +602,8 @@
       const countyObj = POLICIES_DATA.find(item => item.cityName === countyName);
       const candidates = countyObj ? countyObj.candidates : [];
 
-      sheetPolicyCount.textContent = `${candidates.length} 個政見`;
+      // 動態更新數量文字
+      sheetPolicyCount.textContent = `共 ${candidates.length} 位候選人提出具體政見`;
 
       if (candidates.length === 0) {
         sheetCardContainer.innerHTML = `
