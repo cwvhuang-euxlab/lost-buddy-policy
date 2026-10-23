@@ -192,18 +192,41 @@
       border-radius: 10px;
     }
 
-    @media (max-width: 640px) {
-      main > div:has(#taiwan-map) {
-        min-height: 0 !important;
-        padding: 12px !important;
-      }
+@media (max-width: 640px) {
+  main {
+    padding: 12px 12px 0 12px !important;
+    gap: 8px !important;
+  }
+
+  main > div:first-child {
+    margin-bottom: 0 !important;
+  }
+
+  main > div:has(#county-select) {
+    margin-bottom: 0 !important;
+  }
+
+  /* 取消地圖寫死的高度，讓 SVG 依據比例自適應容器 */
+  main > div:has(#taiwan-map) {
+    min-height: 0 !important;
+    padding: 8px !important;
+    flex: 1 1 auto !important;
+  }
+
+  #taiwan-map {
+    max-height: none !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+}
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-amber-100 selection:text-amber-900 pb-4">
+<!-- 移除 justify-between / justify-center，改為 justify-start -->
+<body class="min-h-screen flex flex-col justify-start selection:bg-amber-100 selection:text-amber-900">
 
-  <!-- 主內容區 -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col items-center justify-center">
+  <!-- 移除 justify-center，加入 h-full / flex-1 -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 flex flex-col items-center justify-start gap-3">
     
     <!-- 操作提示與顏色圖例說明 -->
     <div class="w-full max-w-xl mb-4 bg-white/90 border border-amber-200/80 rounded-2xl p-3.5 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-sm text-stone-700">
@@ -235,7 +258,8 @@
     </div>
 
     <!-- 台灣地圖 SVG -->
-    <div class="w-full max-w-xl bg-white rounded-3xl p-4 sm:p-8 shadow-xl shadow-stone-200/50 border border-stone-100 flex items-center justify-center relative min-h-[420px]">
+    <!-- 改為 flex-1 彈性撐高，並將 min-h 降到最小 -->
+<div class="w-full max-w-xl bg-white rounded-3xl p-3 sm:p-6 shadow-xl shadow-stone-200/50 border border-stone-100 flex-1 flex items-center justify-center relative min-h-[280px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] drop-shadow-md">
         <g id="counties" transform="translate(82 0)">
           <!-- 北部縣市 -->
