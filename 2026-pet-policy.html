@@ -103,17 +103,29 @@
       position: absolute;
       z-index: 50;
       top: 125%;
-      left: 225%;
+      left: 200%;
       transform: translateX(-50%);
       opacity: 0;
       transition: opacity 0.2s ease;
       box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.2);
       font-weight: normal;
+      pointer-events: none;
     }
 
-    .tooltip-container:hover .tooltip-content {
+    /* 電腦版維持 Hover 顯示 */
+    @media (hover: hover) {
+      .tooltip-container:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    /* 手機或點擊後透過 .show 顯示 */
+    .tooltip-content.show {
       visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
 
     /* RWD 手機版介面高度調整 */
@@ -170,39 +182,40 @@
     <div
       class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <!-- 移到這裡並改為絕對定位 -->
-  <div class="absolute top-4 left-4 z-10 space-y-1.5 text-xs font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
-    <div class="flex items-center gap-2">
-      <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#B0BCFF;"></span>
-      <span>已有候選人提出具體政見</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#D0D8F5;"></span>
-      <span>目前尚無政見資料</span>
-    </div>
-    <span class="tooltip-container underline decoration-dotted cursor-pointer text-[#201F6A] font-semibold">收錄標準
-            <div class="tooltip-content">
-              <!-- 第一段：收錄標準 -->
-              <div class="space-y-1">
-                <div class="font-bold text-sm text-indigo-200">收錄標準</div>
-                <div class="text-xs leading-relaxed text-slate-100">僅收錄針對 2026 年選舉提出、內容具體的政策，不包含過往紀錄或未具體說明政策內容的表態。</div>
-              </div>
-
-              <!-- 第二段：中立原則 (用 mt-3 增加與上方間距) -->
-              <div class="space-y-1 mt-3">
-                <div class="font-bold text-sm text-indigo-200">中立原則</div>
-                <div class="text-xs leading-relaxed text-slate-100">本頁以資訊整理為主，不對候選人或政見進行排名或評價。</div>
-              </div>
-
-              <!-- 下方分隔線與較不明顯的更新資訊 -->
-              <div class="mt-3 pt-2.5 border-t border-slate-600/60 space-y-1 text-[11px] text-slate-400 leading-normal">
-                <div>資料更新日期：2026 年 10 月 26 日</div>
-                <div>政見資訊可能隨選舉進程更新。若發現遺漏或需要更正，歡迎提供原始來源，協助我們持續更新。</div>
-              </div>
+      <div
+        class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#B0BCFF;"></span>
+          <span>已有候選人提出具體政見</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#D0D8F5;"></span>
+          <span>目前尚無政見資料</span>
+        </div>
+        <span class="tooltip-container underline decoration-dotted cursor-pointer text-[#201F6A] font-semibold">收錄標準
+          <div class="tooltip-content">
+            <!-- 第一段：收錄標準 -->
+            <div class="space-y-1">
+              <div class="font-bold text-sm text-indigo-200">收錄標準</div>
+              <div class="text-xs leading-relaxed text-slate-100">僅收錄針對 2026 年選舉提出、內容具體的政策，不包含過往紀錄或未具體說明政策內容的表態。</div>
             </div>
-          </span>
-  </div>
+
+            <!-- 第二段：中立原則 (用 mt-3 增加與上方間距) -->
+            <div class="space-y-1 mt-3">
+              <div class="font-bold text-sm text-indigo-200">中立原則</div>
+              <div class="text-xs leading-relaxed text-slate-100">本頁以資訊整理為主，不對候選人或政見進行排名或評價。</div>
+            </div>
+
+            <!-- 下方分隔線與較不明顯的更新資訊 -->
+            <div class="mt-3 pt-2.5 border-t border-slate-600/60 space-y-1 text-[11px] text-slate-400 leading-normal">
+              <div>資料更新日期：2026 年 10 月 26 日</div>
+              <div>政見資訊可能隨選舉進程更新。若發現遺漏或需要更正，歡迎提供原始來源，協助我們持續更新。</div>
+            </div>
+          </div>
+        </span>
+      </div>
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px]">
-        <g id="counties" transform="translate(115 28)">
+        <g id="counties" transform="translate(150 28)">
           <!-- 北部縣市 -->
           <path id="TW-KEE" data-name="基隆市" class="county-path"
             d="M285.962 29.8021L285.792 37.104L285.877 38.9719L288.17 41.3493L287.915 42.8776L286.387 43.9813L283.924 44.9153L280.783 44.4908L274.33 41.8587L272.462 40.5002L270.255 38.3776L268.472 36.2549L267.453 34.1323L265.67 31.8398L265.33 30.0568L267.283 28.7832L271.698 26.8304L274.33 25.0474L275.264 25.6417L275.689 26.3209L276.707 27.2549L279.085 28.1889L285.962 29.8021Z" />
@@ -248,10 +261,10 @@
             d="M218.715 190.529L220.413 189.256L221.177 188.067L223.3 186.963L225.168 184.671L225.932 181.529L227.8 178.473L232.385 175.586L234.083 169.218L236.969 166.246L238.498 167.52L242.488 169.388L251.658 171.765L256.753 173.718H260.743L263.715 170.916L265.158 167.265L267.451 166.756L278.828 173.463L285.62 174.567H286.3L286.724 174.991L287.234 175.925L287.658 176.859L287.828 177.454L286.979 178.897L283.413 182.378L279.507 187.727L276.705 190.02L275.856 191.208L276.281 192.482L275.771 193.416L271.611 196.473L270.083 198.001L268.385 201.652L266.686 209.123L262.102 215.746L261.168 218.463L261.337 221.35L262.441 224.576L263.375 225.935L264.139 226.529L264.649 227.378L264.734 229.331L264.054 231.623L261.762 235.105L261.337 237.227L261.083 241.133L259.13 251.067L255.224 261.595L250.3 286.048L247.413 292.076L240.62 331.303L238.498 330.623L231.875 333.85L229.498 337.161L230.602 341.406L230.941 345.567L228.734 349.812L226.611 352.954L224.998 357.029L223.47 362.208L221.262 366.878L218.29 375.029L216.422 378.68V382.84L215.913 386.576L211.922 388.869L206.913 388.19L199.696 382.246L194.092 372.482L190.611 371.548L186.79 370.954L183.734 368.067L179.998 366.284L175.243 364.586L172.102 359.576L171.422 355.076L171.253 353.548L169.554 348.878L165.649 345.737L162.253 343.529L161.658 341.067L162.507 339.114L165.903 337.586L167.771 334.614L166.583 331.048L170.234 328.925L172.102 327.142L171.083 323.407L172.017 321.793L172.951 319.246L176.092 316.954L180.677 315.935L185.177 315.765L188.403 312.878L189.253 307.614L191.63 304.473L196.3 302.774L199.102 300.822L200.036 297.765L201.988 290.039L202.753 284.944L202.158 280.529L201.479 277.218L199.526 274.756L198.253 272.293L201.734 266.52L201.819 264.227L203.347 259.897L205.724 254.718L207.592 249.369L208.526 243.256L208.951 238.671L207.847 235.954L206.573 233.916L208.017 229.246L211.158 222.708L216.083 216.256L216.168 213.963L215.319 211.161L212.092 209.123L210.394 207.256L210.224 201.142L212.517 199.359L216.507 198.001L219.734 196.557L219.564 194.35L218.715 190.529Z" />
           <path id="TW-TTT" data-name="臺東縣" class="county-path"
             d="M139.84 432.254L142.217 431.915L141.453 428.943L137.717 425.037L135.849 422.235L135 417.226L136.443 411.282L141.708 406.782L144.34 403.216V396.339L146.208 388.273L144.849 382.245L145.443 377.999L149.943 375.537L151.557 372.565L150.198 368.915L150.708 365.433L155.462 362.292L157.925 359.915L161.915 357.452L171.425 355.075L172.104 359.575L175.245 364.584L180 366.282L183.736 368.065L186.793 370.952L190.613 371.547L194.094 372.481L199.698 382.245L206.915 388.188L211.925 388.867L215.915 386.575L216.425 382.839V378.679L218.293 375.028L221.264 366.877L223.472 362.207L225 357.028L226.613 352.952L228.736 349.811L230.943 345.565L230.604 341.405L229.5 337.16L231.877 333.848L238.5 330.622L240.623 331.301L237.821 347.433L236.462 350.405L232.132 356.179L230.519 359.15L229.245 362.886L228.396 369.933L228.481 376.131L227.802 381.99L224.83 388.103L223.557 389.462L220.67 391.584L219.396 392.943L218.717 394.301L217.698 397.867L214.727 403.047L212.943 411.028L211.67 414.594L205.387 423.679L204.623 425.377L196.132 432.509L194.094 434.886L193.755 436.499L194.179 440.32L194.094 442.018L193.33 443.971L191.972 446.179L189.085 449.83L186.198 452.547L176.349 459.169L169.727 466.386L168.113 467.235L166.84 468.933L163.613 477.169L162.085 480.226L157.16 486.424L155.123 490.075L154.019 497.547L151.047 507.82L145.189 518.094L144.34 521.575L143.321 531.424L143.491 540.339L140.774 540.594L134.491 537.707L131.689 534.735L129.736 531.084L129.396 527.348L129.481 523.867L127.528 521.15L125.491 520.131L123.793 517.754L124.132 514.952L125.406 512.575L128.632 510.622L130.16 508.33L127.359 504.933L125.745 501.792V498.565L125.066 494.235L123.877 490.499L123.113 486.509L123.623 477.509L125.491 472.924L127.698 468.848L129.142 464.858L132.453 462.141L137.123 461.122L140.094 459.424L146.038 456.877L147.311 453.905L147.396 450.679L149.094 442.273L145.698 440.065L142.387 439.216L141.962 436.245L139.84 432.254Z" />
-        
-          
-        
-          </g>
+
+
+
+        </g>
       </svg>
     </div>
 
@@ -297,7 +310,7 @@
       <!-- 底部聲明注意事項 (字體大小與圖例一致、一般字重 font-normal、顏色採用 #2D3A48，齊左排列) -->
       <div
         class="pt-3 pb-2 text-left text-xs text-[#656565] space-y-1.5 leading-relaxed border-t border-stone-200/60 font-normal">
-        <ul class="list-disc pl-5 space-y-1.5 font-normal">
+        <ul class="list-disc pl-5 space-y-1 font-normal">
           <li>候選人依姓氏筆畫排序。</li>
           <li>未列出的候選人，表示目前尚無符合本頁收錄標準的政見資料，不代表未提出相關主張。</li>
           <li>本頁附有政見原始來源，完整內容請參閱官方選舉公報及候選人正式發布的資料。</li>
@@ -628,6 +641,34 @@
       initSelectOptions();
       bindEvents();
     });
+
+    // 手機版點擊 Tooltip 互動控制
+    document.addEventListener('DOMContentLoaded', () => {
+      const tooltipContainers = document.querySelectorAll('.tooltip-container');
+
+      tooltipContainers.forEach(container => {
+        container.addEventListener('click', (e) => {
+          e.stopPropagation(); // 避免事件冒泡
+          const content = container.querySelector('.tooltip-content');
+          if (content) {
+            // 關閉其他可能正在打開的 tooltip
+            document.querySelectorAll('.tooltip-content.show').forEach(item => {
+              if (item !== content) item.classList.remove('show');
+            });
+            // 切換當前的顯示狀態
+            content.classList.toggle('show');
+          }
+        });
+      });
+
+      // 點擊畫面其他地方時關閉所有 Tooltip
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.tooltip-content.show').forEach(content => {
+          content.classList.remove('show');
+        });
+      });
+    });
+
   </script>
 </body>
 
