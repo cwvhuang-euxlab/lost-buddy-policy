@@ -573,36 +573,35 @@
       });
     }
 
-    // 生成候選人卡片 HTML（強制觸發外部瀏覽器開啟）
-    function createCandidateCard(candidate) {
-      return `
-        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-          <!-- 左右兩欄結構 -->
-          <div class="flex items-start gap-3 w-full">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
-                 style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
-              ${candidate.number || ''}
-            </div>
-            
-            <div class="space-y-1 w-full">
-              <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
-                ${candidate.name}
-              </h3>
-              <p class="text-base font-medium text-[#2D3A48] leading-snug">
-                ${candidate.title}
-              </p>
-              ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-            </div>
-          </div>
-
-          <!-- 透過 onclick 呼叫專屬外開函式 -->
-          <button onclick="openExternalBrowser('${candidate.link}')" 
-             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
-            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-          </button>
+    // 生成候選人卡片 HTML
+function createCandidateCard(candidate) {
+  return `
+    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+      <!-- 左右兩欄結構 -->
+      <div class="flex items-start gap-3 w-full">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+          ${candidate.number || ''}
         </div>
-      `;
-    }
+        
+        <div class="space-y-1 w-full">
+          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+            ${candidate.name}
+          </h3>
+          <p class="text-base font-medium text-[#2D3A48] leading-snug">
+            ${candidate.title}
+          </p>
+          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+        </div>
+      </div>
+
+      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+      </a>
+    </div>
+  `;
+}
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -703,18 +702,6 @@
         });
       });
     });
-
-    // 強制嘗試交由外部系統開啟瀏覽器的函式
-    function openExternalBrowser(url) {
-      // 1. 標準網頁外開嘗試
-      const newWindow = window.open(url, '_system');
-      
-      // 2. 如果 WebView 依然把它攔截在內部，提供安全備用機制（彈出帶有完整連結的提示框讓用戶複製或一鍵略過）
-      if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-        // 如果瀏覽器全面封鎖，退守使用 location 讓用戶能透過外部瀏覽器檢視，或者顯示友善提示
-        window.location.href = url;
-      }
-    }
 
   </script>
 </body>
