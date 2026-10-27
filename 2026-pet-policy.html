@@ -179,7 +179,8 @@
     </div>
 
     <!-- 台灣地圖 SVG 容器 -->
-    <div class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
+    <div
+      class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] z-20">
         <g id="counties" transform="translate(130 50)">
           <!-- 北部縣市 -->
@@ -230,7 +231,7 @@
 
         </g>
       </svg>
-<!-- 移到這裡並改為絕對定位 -->
+      <!-- 移到這裡並改為絕對定位 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -268,12 +269,12 @@
   </main>
 
   <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
-      <p class="text-sm font-normal text-[#2D3A48]">
-        2026 縣市長選舉｜寵物政見整理
-      </p>
-      <p class="text-xs text-[#656565] font-normal">
-        © 2026 Eux Lab. All rights reserved.
-      </p>
+    <p class="text-sm font-normal text-[#2D3A48]">
+      2026 縣市長選舉｜寵物政見整理
+    </p>
+    <p class="text-xs text-[#656565] font-normal">
+      © 2026 Eux Lab. All rights reserved.
+    </p>
   </footer>
 
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
@@ -574,8 +575,8 @@
     }
 
     // 生成候選人卡片 HTML
-function createCandidateCard(candidate) {
-  return `
+    function createCandidateCard(candidate) {
+      return `
     <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
       <!-- 左右兩欄結構 -->
       <div class="flex items-start gap-3 w-full">
@@ -601,7 +602,7 @@ function createCandidateCard(candidate) {
       </a>
     </div>
   `;
-}
+    }
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -703,6 +704,19 @@ function createCandidateCard(candidate) {
       });
     });
 
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+
+      // 檢查是否為「查看原始政見」按鈕
+      if (link && link.target === '_blank') {
+        e.preventDefault(); // 阻止 WebView 嘗試在同頁面載入
+        const targetUrl = link.href;
+
+        // 直接在當前視窗呼叫另開新視窗
+        // 在 App 的 WebView 中，這通常會自動觸發外部瀏覽器開啟
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      }
+    });
   </script>
 </body>
 
