@@ -179,8 +179,7 @@
     </div>
 
     <!-- 台灣地圖 SVG 容器 -->
-    <div
-      class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
+    <div class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] z-20">
         <g id="counties" transform="translate(130 50)">
           <!-- 北部縣市 -->
@@ -231,7 +230,7 @@
 
         </g>
       </svg>
-      <!-- 移到這裡並改為絕對定位 -->
+<!-- 移到這裡並改為絕對定位 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -269,12 +268,12 @@
   </main>
 
   <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
-    <p class="text-sm font-normal text-[#2D3A48]">
-      2026 縣市長選舉｜寵物政見整理
-    </p>
-    <p class="text-xs text-[#656565] font-normal">
-      © 2026 Eux Lab. All rights reserved.
-    </p>
+      <p class="text-sm font-normal text-[#2D3A48]">
+        2026 縣市長選舉｜寵物政見整理
+      </p>
+      <p class="text-xs text-[#656565] font-normal">
+        © 2026 Eux Lab. All rights reserved.
+      </p>
   </footer>
 
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
@@ -574,47 +573,35 @@
       });
     }
 
-    // 生成候選人卡片 HTML（透過 JS 控制點擊行為）
+    // 生成候選人卡片 HTML（強制觸發外部瀏覽器開啟）
     function createCandidateCard(candidate) {
-      const isSocial = candidate.link.includes('facebook.com') || candidate.link.includes('instagram.com');
+      return `
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+          <!-- 左右兩欄結構 -->
+          <div class="flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+                 style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+              ${candidate.number || ''}
+            </div>
+            
+            <div class="space-y-1 w-full">
+              <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+                ${candidate.name}
+              </h3>
+              <p class="text-base font-medium text-[#2D3A48] leading-snug">
+                ${candidate.title}
+              </p>
+              ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+            </div>
+          </div>
 
-      // FB、IG 維持原本的標準外開
-      if (isSocial) {
-        return `
-          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-            <div class="flex items-start gap-3 w-full">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5" style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">${candidate.number || ''}</div>
-              <div class="space-y-1 w-full">
-                <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">${candidate.name}</h3>
-                <p class="text-base font-medium text-[#2D3A48] leading-snug">${candidate.title}</p>
-                ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-              </div>
-            </div>
-            <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-               class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-              查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-            </a>
-          </div>
-        `;
-      } else {
-        // 一般政策網站：點擊後在同頁開啟，並自動顯示浮動返回按鈕
-        return `
-          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-            <div class="flex items-start gap-3 w-full">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5" style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">${candidate.number || ''}</div>
-              <div class="space-y-1 w-full">
-                <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">${candidate.name}</h3>
-                <p class="text-base font-medium text-[#2D3A48] leading-snug">${candidate.title}</p>
-                ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-              </div>
-            </div>
-            <button onclick="openPolicyInWebView('${candidate.link}')" 
-               class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
-              查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-            </button>
-          </div>
-        `;
-      }
+          <!-- 透過 onclick 呼叫專屬外開函式 -->
+          <button onclick="openExternalBrowser('${candidate.link}')" 
+             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
+            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+          </button>
+        </div>
+      `;
     }
 
     // 開啟 Bottom Sheet
@@ -716,47 +703,19 @@
         });
       });
     });
-    
-    // ==========================================
-    // 政策網站內嵌瀏覽與 Floating Button 控制機制
-    // ==========================================
 
-    let isViewingPolicy = false;
-
-    function openPolicyInWebView(url) {
-      isViewingPolicy = true;
-
-      // 1. 顯示懸浮返回按鈕 (Floating Button)，符合 #F3F4FB 底色與 #201F6A 文字
-      showFloatingBackBtn();
-
-      // 2. 將當前 WebView 導向候選人的政策網頁
-      window.location.href = url;
-    }
-
-    function showFloatingBackBtn() {
-      let floatBtn = document.getElementById('floating-back-btn');
-      if (!floatBtn) {
-        const btnHTML = `
-          <button id="floating-back-btn" onclick="returnToMapHome()" 
-            class="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#F3F4FB] text-[#201F6A] font-extrabold text-sm shadow-xl border border-indigo-200 hover:bg-indigo-100 transition transform hover:scale-105 cursor-pointer">
-            <i class="fa-solid fa-arrow-left text-base"></i> 返回政策地圖
-          </button>
-        `;
-        document.body.insertAdjacentHTML('beforeend', btnHTML);
+    // 強制嘗試交由外部系統開啟瀏覽器的函式
+    function openExternalBrowser(url) {
+      // 1. 標準網頁外開嘗試
+      const newWindow = window.open(url, '_system');
+      
+      // 2. 如果 WebView 依然把它攔截在內部，提供安全備用機制（彈出帶有完整連結的提示框讓用戶複製或一鍵略過）
+      if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+        // 如果瀏覽器全面封鎖，退守使用 location 讓用戶能透過外部瀏覽器檢視，或者顯示友善提示
+        window.location.href = url;
       }
     }
 
-    function returnToMapHome() {
-      // 點擊懸浮按鈕後，直接返回我們原本部署地圖的網址首頁（記得帶上您的 GitHub Pages 網址）
-      window.location.href = "https://cwvhuang-euxlab.github.io/lost-buddy-policy/2026-pet-policy.html?v=3";
-    }
-
-    // 監聽瀏覽器返回事件，確保使用者如果按上一頁也能正確回到地圖首頁
-    window.addEventListener('popstate', () => {
-      if (isViewingPolicy) {
-        returnToMapHome();
-      }
-    });
   </script>
 </body>
 
