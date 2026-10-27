@@ -86,7 +86,7 @@
       border-radius: 10px;
     }
 
-    /* Tooltip 樣式 (符合附圖分級標題與說明) */
+    /* Tooltip 樣式 */
     .tooltip-container {
       position: relative;
       display: inline-block;
@@ -112,7 +112,6 @@
       pointer-events: none;
     }
 
-    /* 電腦版維持 Hover 顯示 */
     @media (hover: hover) {
       .tooltip-container:hover .tooltip-content {
         visibility: visible;
@@ -121,7 +120,6 @@
       }
     }
 
-    /* 手機或點擊後透過 .show 顯示 */
     .tooltip-content.show {
       visibility: visible;
       opacity: 1;
@@ -152,7 +150,7 @@
 
 <body class="min-h-screen flex flex-col justify-start selection:bg-indigo-100 selection:text-indigo-900">
 
-  <!-- 主內容容器：上下 padding 一致 -->
+  <!-- 主內容容器 -->
   <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col items-start justify-start gap-5">
 
     <!-- 頂部標題與說明文字區 -->
@@ -230,7 +228,8 @@
 
         </g>
       </svg>
-<!-- 移到這裡並改為絕對定位 -->
+
+      <!-- 圖例標籤 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -243,19 +242,16 @@
         </div>
         <span class="tooltip-container underline decoration-dotted cursor-pointer text-[#201F6A] font-semibold">收錄標準
           <div class="tooltip-content">
-            <!-- 第一段：收錄標準 -->
             <div class="space-y-1">
               <div class="font-bold text-sm text-indigo-200">收錄標準</div>
               <div class="text-xs leading-relaxed text-slate-100">僅收錄針對 2026 年選舉提出、內容具體的政策，不包含過往紀錄或未具體說明政策內容的表態。</div>
             </div>
 
-            <!-- 第二段：中立原則 (用 mt-3 增加與上方間距) -->
             <div class="space-y-1 mt-3">
               <div class="font-bold text-sm text-indigo-200">中立原則</div>
               <div class="text-xs leading-relaxed text-slate-100">本頁以資訊整理為主，不對候選人或政見進行排名或評價。</div>
             </div>
 
-            <!-- 下方分隔線與較不明顯的更新資訊 -->
             <div class="mt-3 pt-2.5 border-t border-slate-600/60 space-y-1 text-[11px] text-slate-400 leading-normal">
               <div>資料更新日期：2026 年 10 月 26 日</div>
               <div>政見資訊可能隨選舉進程更新。若發現遺漏或需要更正，歡迎提供原始來源，協助我們持續更新。</div>
@@ -276,7 +272,7 @@
       </p>
   </footer>
 
-  <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
+  <!-- Bottom Sheet 背景遮罩 -->
   <div id="backdrop"
     class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-30 opacity-0 pointer-events-none transition-opacity duration-300">
   </div>
@@ -285,7 +281,7 @@
   <div id="bottom-sheet"
     class="bottom-sheet closed fixed bottom-0 left-0 right-0 bg-[#F3F4FB] z-40 max-h-[85vh] sm:max-h-[75vh] max-w-xl mx-auto flex flex-col shadow-2xl border-t border-indigo-100">
 
-    <!-- 頂部 Pull Bar 視覺指引 -->
+    <!-- 頂部 Pull Bar -->
     <div class="w-full flex justify-center pt-2.5 pb-1 cursor-grab">
       <div class="w-10 h-1.2 bg-stone-300 rounded-full"></div>
     </div>
@@ -303,7 +299,6 @@
 
     <!-- 內容滾動區 -->
     <div class="px-5 pb-5 overflow-y-auto custom-scrollbar flex-1 space-y-4">
-      <!-- 統計文字 -->
       <p id="sheet-policy-count" class="text-sm font-normal text-[#2E3238] px-1">
         共 2 位候選人提出符合收錄標準的具體政見
       </p>
@@ -313,7 +308,7 @@
         <!-- 候選人卡片透過 JS 自動渲染 -->
       </div>
 
-      <!-- 底部聲明注意事項 (字體大小與圖例一致、一般字重 font-normal、顏色採用 #2D3A48，齊左排列) -->
+      <!-- 底部聲明注意事項 -->
       <div
         class="pt-3 pb-2 text-left text-xs text-[#656565] space-y-1.5 leading-relaxed border-t border-stone-200/60 font-normal">
         <ul class="list-disc pl-5 space-y-1 font-normal">
@@ -417,8 +412,7 @@
             title: "競選政策網站｜05 韌性永續類別",
             summary: "",
             link: "https://taichungway.tw/future"
-          },
-
+          }
         ]
       },
       {
@@ -573,35 +567,34 @@
       });
     }
 
-    // 生成候選人卡片 HTML
-function createCandidateCard(candidate) {
-  return `
-    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-      <!-- 左右兩欄結構 -->
-      <div class="flex items-start gap-3 w-full">
-        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
-             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
-          ${candidate.number || ''}
-        </div>
-        
-        <div class="space-y-1 w-full">
-          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
-            ${candidate.name}
-          </h3>
-          <p class="text-base font-medium text-[#2D3A48] leading-snug">
-            ${candidate.title}
-          </p>
-          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-        </div>
-      </div>
+    // 生成候選人卡片 HTML（標準 Target _blank 設定）
+    function createCandidateCard(candidate) {
+      return `
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+          <div class="flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+                 style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+              ${candidate.number || ''}
+            </div>
+            
+            <div class="space-y-1 w-full">
+              <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+                ${candidate.name}
+              </h3>
+              <p class="text-base font-medium text-[#2D3A48] leading-snug">
+                ${candidate.title}
+              </p>
+              ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+            </div>
+          </div>
 
-      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-      </a>
-    </div>
-  `;
-}
+          <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+          </a>
+        </div>
+      `;
+    }
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -682,20 +675,17 @@ function createCandidateCard(candidate) {
 
       tooltipContainers.forEach(container => {
         container.addEventListener('click', (e) => {
-          e.stopPropagation(); // 避免事件冒泡
+          e.stopPropagation();
           const content = container.querySelector('.tooltip-content');
           if (content) {
-            // 關閉其他可能正在打開的 tooltip
             document.querySelectorAll('.tooltip-content.show').forEach(item => {
               if (item !== content) item.classList.remove('show');
             });
-            // 切換當前的顯示狀態
             content.classList.toggle('show');
           }
         });
       });
 
-      // 點擊畫面其他地方時關閉所有 Tooltip
       document.addEventListener('click', () => {
         document.querySelectorAll('.tooltip-content.show').forEach(content => {
           content.classList.remove('show');
