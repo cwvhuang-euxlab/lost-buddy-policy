@@ -31,6 +31,14 @@
       --map-active-fill: #4D49FC;
     }
 
+    html,
+    body {
+      height: 100% !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      /* 讓 iOS 滑動更順暢 */
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: var(--color-bg-main);
@@ -110,6 +118,10 @@
       box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.2);
       font-weight: normal;
       pointer-events: none;
+    }
+
+    #policy-modal.hidden {
+      display: none !important;
     }
 
     /* 電腦版維持 Hover 顯示 */
@@ -312,6 +324,26 @@
       <!-- 政見卡片列表容器 -->
       <div id="sheet-card-container" class="space-y-3.5">
         <!-- 候選人卡片透過 JS 自動渲染 -->
+      </div>
+
+
+      <!-- 內嵌政見瀏覽 Modal (改為標準 div 標籤，並放在 script 後面、body 結束標籤前) -->
+      <div id="policy-modal" class="fixed inset-0 z-50 flex flex-col bg-white hidden">
+        <!-- Modal 頂部導覽列 -->
+        <div
+          class="flex items-center justify-between px-4 py-3 bg-[#F3F4FB] text-[#201F6A] shrink-0 border-b border-indigo-100 shadow-xs">
+          <div id="modal-title" class="text-sm font-bold truncate pr-4 text-[#201F6A]">瀏覽原始政見</div>
+          <button onclick="closePolicyModal()"
+            class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-indigo-100/80 text-[#201F6A] transition cursor-pointer">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+
+        <!-- 載入外部網頁的 iframe -->
+        <div class="flex-1 w-full relative bg-stone-100">
+          <iframe id="policy-iframe" src="" class="w-full h-full border-0"></iframe>
+        </div>
       </div>
 
       <!-- 底部聲明注意事項 (字體大小與圖例一致、一般字重 font-normal、顏色採用 #2D3A48，齊左排列) -->
@@ -596,13 +628,50 @@
         </div>
       </div>
 
-      <!-- 回歸最標準的超連結寫法，不使用任何 JS 攔截 -->
-      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+      <!-- 改為呼叫 handlePolicyClick 進行智慧分流 -->
+      <button onclick="handlePolicyClick('${candidate.link}', '${candidate.name} - ${candidate.title}')" 
+         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
         查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-      </a>
+      </button>
     </div>
   `;
+    }
+
+    // 點擊按鈕時的處理邏輯（智慧分流）
+    function handlePolicyClick(url, title) {
+      // 檢查是否為 Facebook、Instagram 或設定了反嵌入政策的網站
+      if (
+        url.includes('facebook.com') ||
+        url.includes('instagram.com') ||
+        url.includes('taichungway.tw') ||
+        url.includes('chiao.tw')
+      ) {
+        // 這些不允許 iframe 嵌入的網站，直接用另開視窗交由外部瀏覽器開啟
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else {
+        // 允許嵌入的政策網站才用內嵌 Modal 視窗開啟
+        openPolicyModal(url, title);
+      }
+    }
+
+    // 開啟內嵌視窗
+    function openPolicyModal(url, title) {
+      const modal = document.getElementById('policy-modal');
+      const iframe = document.getElementById('policy-iframe');
+      const titleEl = document.getElementById('modal-title');
+
+      titleEl.textContent = title;
+      iframe.src = url; // 載入目標網址
+      modal.classList.remove('hidden');
+    }
+
+    // 關閉內嵌視窗
+    function closePolicyModal() {
+      const modal = document.getElementById('policy-modal');
+      const iframe = document.getElementById('policy-iframe');
+
+      modal.classList.add('hidden');
+      iframe.src = ''; // 清空 iframe 停止載入與背景聲音
     }
 
     // 開啟 Bottom Sheet
@@ -706,6 +775,9 @@
     });
 
   </script>
+
+
+
 </body>
 
 </html>
