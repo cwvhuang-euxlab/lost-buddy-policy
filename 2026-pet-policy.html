@@ -179,7 +179,8 @@
     </div>
 
     <!-- 台灣地圖 SVG 容器 -->
-    <div class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
+    <div
+      class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] z-20">
         <g id="counties" transform="translate(130 50)">
           <!-- 北部縣市 -->
@@ -230,7 +231,7 @@
 
         </g>
       </svg>
-<!-- 移到這裡並改為絕對定位 -->
+      <!-- 移到這裡並改為絕對定位 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -268,12 +269,12 @@
   </main>
 
   <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
-      <p class="text-sm font-normal text-[#2D3A48]">
-        2026 縣市長選舉｜寵物政見整理
-      </p>
-      <p class="text-xs text-[#656565] font-normal">
-        © 2026 Eux Lab. All rights reserved.
-      </p>
+    <p class="text-sm font-normal text-[#2D3A48]">
+      2026 縣市長選舉｜寵物政見整理
+    </p>
+    <p class="text-xs text-[#656565] font-normal">
+      © 2026 Eux Lab. All rights reserved.
+    </p>
   </footer>
 
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
@@ -573,36 +574,37 @@
       });
     }
 
-    // 生成候選人卡片 HTML
-function createCandidateCard(candidate) {
-  return `
-    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-      <!-- 左右兩欄結構 -->
-      <div class="flex items-start gap-3 w-full">
-        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
-             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
-          ${candidate.number || ''}
-        </div>
-        
-        <div class="space-y-1 w-full">
-          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
-            ${candidate.name}
-          </h3>
-          <p class="text-base font-medium text-[#2D3A48] leading-snug">
-            ${candidate.title}
-          </p>
-          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-        </div>
-      </div>
+    // 生成候選人卡片 HTML（所有連結統一採標準另開新視窗標籤）
+    function createCandidateCard(candidate) {
+      return `
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+          <!-- 左右兩欄結構 -->
+          <div class="flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+                 style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+              ${candidate.number || ''}
+            </div>
+            
+            <div class="space-y-1 w-full">
+              <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+                ${candidate.name}
+              </h3>
+              <p class="text-base font-medium text-[#2D3A48] leading-snug">
+                ${candidate.title}
+              </p>
+              ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+            </div>
+          </div>
 
-      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-      </a>
-    </div>
-  `;
-}
-
+          <!-- 標準超連結：結合 target="_blank"，在開啟新版 APP 時會直接喚醒外部瀏覽器或對應 APP -->
+          <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+          </a>
+        </div>
+      `;
+    }
+    
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
       countyPaths.forEach(path => {
