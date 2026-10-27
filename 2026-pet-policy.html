@@ -179,7 +179,8 @@
     </div>
 
     <!-- 台灣地圖 SVG 容器 -->
-    <div class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
+    <div
+      class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] z-20">
         <g id="counties" transform="translate(130 50)">
           <!-- 北部縣市 -->
@@ -230,7 +231,7 @@
 
         </g>
       </svg>
-<!-- 移到這裡並改為絕對定位 -->
+      <!-- 移到這裡並改為絕對定位 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -268,12 +269,12 @@
   </main>
 
   <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
-      <p class="text-sm font-normal text-[#2D3A48]">
-        2026 縣市長選舉｜寵物政見整理
-      </p>
-      <p class="text-xs text-[#656565] font-normal">
-        © 2026 Eux Lab. All rights reserved.
-      </p>
+    <p class="text-sm font-normal text-[#2D3A48]">
+      2026 縣市長選舉｜寵物政見整理
+    </p>
+    <p class="text-xs text-[#656565] font-normal">
+      © 2026 Eux Lab. All rights reserved.
+    </p>
   </footer>
 
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
@@ -573,35 +574,36 @@
       });
     }
 
-    // 生成候選人卡片 HTML
-function createCandidateCard(candidate) {
-  return `
-    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-      <!-- 左右兩欄結構 -->
-      <div class="flex items-start gap-3 w-full">
-        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
-             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
-          ${candidate.number || ''}
-        </div>
-        
-        <div class="space-y-1 w-full">
-          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
-            ${candidate.name}
-          </h3>
-          <p class="text-base font-medium text-[#2D3A48] leading-snug">
-            ${candidate.title}
-          </p>
-          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-        </div>
-      </div>
+    // 生成候選人卡片 HTML（改為呼叫 handleLinkClick 進行 WebView 智慧防護分流）
+    function createCandidateCard(candidate) {
+      return `
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+          <!-- 左右兩欄結構 -->
+          <div class="flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+                 style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+              ${candidate.number || ''}
+            </div>
+            
+            <div class="space-y-1 w-full">
+              <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+                ${candidate.name}
+              </h3>
+              <p class="text-base font-medium text-[#2D3A48] leading-snug">
+                ${candidate.title}
+              </p>
+              ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+            </div>
+          </div>
 
-      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-      </a>
-    </div>
-  `;
-}
+          <!-- 改為 button 並綁定 handleLinkClick -->
+          <button onclick="handleLinkClick(event, '${candidate.link}', '${candidate.name} - ${candidate.title}')" 
+             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
+            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+          </button>
+        </div>
+      `;
+    }
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -702,6 +704,79 @@ function createCandidateCard(candidate) {
         });
       });
     });
+
+    // ==========================================
+    // 針對 FlutterFlow WebView 的防卡死與外開分流機制
+    // ==========================================
+    function handleLinkClick(event, url, title) {
+      event.preventDefault();
+
+      // 1. 若為 FB 或 IG，直接嘗試外開 (App 會自動喚醒對應 App)
+      if (url.includes('facebook.com') || url.includes('instagram.com')) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+      }
+
+      // 2. 一般網頁：嘗試用 window.open 外開
+      const opened = window.open(url, '_blank', 'noopener,noreferrer');
+
+      // 3. 如果因 FlutterFlow WebView 限制導致外開失敗或被攔截，彈出友善導引抽屜避免迷路
+      if (!opened || opened.closed || typeof opened.closed == 'undefined') {
+        showFallbackModal(url, title);
+      }
+    }
+
+    // 顯示備用導引彈窗（符合 #F3F4FB 底色與 #201F6A 主題色）
+    function showFallbackModal(url, title) {
+      let modal = document.getElementById('fallback-modal');
+      if (!modal) {
+        const modalHTML = `
+          <div id="fallback-modal" class="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity duration-300">
+            <div class="bg-[#F3F4FB] w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl border border-indigo-100 space-y-4 text-left">
+              <div class="flex items-center justify-between border-b border-indigo-200/60 pb-3">
+                <h3 class="text-lg font-extrabold text-[#201F6A] tracking-tight">開啟外部政見網頁</h3>
+                <button onclick="closeFallbackModal()" class="w-8 h-8 rounded-full hover:bg-indigo-200/50 text-[#201F6A] flex items-center justify-center transition cursor-pointer">
+                  <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+              </div>
+              <p class="text-sm text-[#2D3A48] leading-relaxed">
+                此政見網站受到 App 內嵌環境的安全限制無法直接跳轉。請點擊下方按鈕複製網址，或直接以外部瀏覽器開啟：
+              </p>
+              <div class="bg-white p-3 rounded-xl border border-indigo-100 text-xs text-stone-500 truncate select-all font-mono" id="fallback-url-text">
+                ${url}
+              </div>
+              <div class="flex flex-col gap-2 pt-2">
+                <button onclick="copyPolicyUrl('${url}')" class="w-full py-3 px-4 rounded-xl bg-[#201F6A] hover:bg-[#181652] text-white font-bold text-sm transition shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                  <i class="fa-regular fa-copy"></i> 複製政見網址
+                </button>
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="w-full text-center py-2.5 px-4 rounded-xl border border-indigo-200 bg-white hover:bg-indigo-50 text-[#201F6A] font-bold text-sm transition block">
+                  直接嘗試前往 <i class="fa-solid fa-external-link text-xs ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+      } else {
+        document.getElementById('fallback-url-text').textContent = url;
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeFallbackModal() {
+      const modal = document.getElementById('fallback-modal');
+      if (modal) modal.remove();
+    }
+
+    function copyPolicyUrl(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('網址已成功複製！請至手機瀏覽器貼上開啟。');
+        closeFallbackModal();
+      }).catch(() => {
+        prompt('請長按複製下方網址：', url);
+      });
+    }
+
 
   </script>
 </body>
