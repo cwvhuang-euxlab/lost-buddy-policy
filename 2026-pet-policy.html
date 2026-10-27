@@ -596,8 +596,8 @@
         </div>
       </div>
 
-      <!-- 改用 onclick 強制觸發外部開啟，繞過 WebView 的連結限制 -->
-      <a href="javascript:void(0);" onclick="window.open('${candidate.link}', '_blank', 'noopener,noreferrer');" 
+      <!-- 回歸最標準的超連結寫法，不使用任何 JS 攔截 -->
+      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
          class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
         查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
       </a>
