@@ -270,6 +270,15 @@
 
   </main>
 
+  <footer class="w-full max-w-2xl mx-auto px-4 pb-8 pt-4 text-center">
+      <p class="text-sm font-normal text-[#2D3A48]">
+        2026 縣市長選舉｜寵物政見整理
+      </p>
+      <p class="text-xs text-[#656565] font-normal">
+        © 2026 Eux Lab. All rights reserved.
+      </p>
+  </footer>
+
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
   <div id="backdrop"
     class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-30 opacity-0 pointer-events-none transition-opacity duration-300">
@@ -311,7 +320,7 @@
       <div
         class="pt-3 pb-2 text-left text-xs text-[#656565] space-y-1.5 leading-relaxed border-t border-stone-200/60 font-normal">
         <ul class="list-disc pl-5 space-y-1 font-normal">
-          <li>候選人依姓氏筆畫排序。</li>
+          <li>候選人依號次排序。</li>
           <li>未列出的候選人，表示目前尚無符合本頁收錄標準的政見資料，不代表未提出相關主張。</li>
           <li>本頁附有政見原始來源，完整內容請參閱官方選舉公報及候選人正式發布的資料。</li>
         </ul>
@@ -327,6 +336,7 @@
         cityName: "基隆市",
         candidates: [
           {
+            number: "1",
             name: "童子瑋",
             title: "競選政策網站｜毛孩顧健康，城市更友善",
             summary: "",
@@ -339,16 +349,18 @@
         cityName: "新北市",
         candidates: [
           {
-            name: "李四川",
-            title: "Facebook 臉書貼文",
-            summary: "",
-            link: "https://www.facebook.com/photo/?fbid=1554510642952857&set=a.638192494584681"
-          },
-          {
+            number: "1",
             name: "蘇巧慧",
             title: "競選政策網站｜三大照顧寵物政見",
             summary: "",
             link: "https://chiao.tw/policies/%e4%b8%89%e5%a4%a7%e7%85%a7%e9%a1%a7%e5%af%b5%e7%89%a9%e6%94%bf%e8%a6%8b"
+          },
+          {
+            number: "3",
+            name: "李四川",
+            title: "Facebook 臉書貼文",
+            summary: "",
+            link: "https://www.facebook.com/photo/?fbid=1554510642952857&set=a.638192494584681"
           }
         ]
       },
@@ -357,6 +369,7 @@
         cityName: "桃園市",
         candidates: [
           {
+            number: "1",
             name: "黃世杰",
             title: "Instagram 貼文",
             summary: "",
@@ -369,6 +382,7 @@
         cityName: "新竹市",
         candidates: [
           {
+            number: "3",
             name: "莊競程",
             title: "Facebook 臉書貼文",
             summary: "",
@@ -381,6 +395,7 @@
         cityName: "苗栗縣",
         candidates: [
           {
+            number: "1",
             name: "陳品安",
             title: "Facebook 臉書貼文",
             summary: "",
@@ -393,17 +408,20 @@
         cityName: "臺中市",
         candidates: [
           {
+            number: "1",
+            name: "何欣純",
+            title: "競選政策網站｜領域政見 > 寵物政見類別",
+            summary: "",
+            link: "https://a-chun.tw/future"
+          },
+          {
+            number: "3",
             name: "江啟臣",
             title: "競選政策網站｜05 韌性永續類別",
             summary: "",
             link: "https://taichungway.tw/future"
           },
-          {
-            name: "何欣純",
-            title: "競選政策網站｜領域政見 > 寵物政見類別",
-            summary: "",
-            link: "https://a-chun.tw/future"
-          }
+
         ]
       },
       {
@@ -411,6 +429,7 @@
         cityName: "雲林縣",
         candidates: [
           {
+            number: "2",
             name: "張嘉郡",
             title: "競選政策網站｜雲林寵物經濟政策白皮書",
             summary: "",
@@ -423,12 +442,14 @@
         cityName: "高雄市",
         candidates: [
           {
+            number: "3",
             name: "柯志恩",
             title: "Instagram 貼文",
             summary: "",
             link: "https://www.instagram.com/p/DcCw_4Oo2FY"
           },
           {
+            number: "5",
             name: "賴瑞隆",
             title: "競選政策網站｜「毛孩四個寶」寵物友善政策 - 南方崛起 邁向國際",
             summary: "",
@@ -441,6 +462,7 @@
         cityName: "宜蘭縣",
         candidates: [
           {
+            number: "1",
             name: "林國漳",
             title: "Facebook 臉書貼文",
             summary: "",
@@ -449,10 +471,11 @@
         ]
       },
       {
-        id: "TW-TTT",
-        cityName: "臺東縣",
+        id: "TW-HWA",
+        cityName: "花蓮縣",
         candidates: [
           {
+            number: "1",
             name: "魏嘉賢",
             title: "Facebook 臉書貼文",
             summary: "",
@@ -465,22 +488,25 @@
         cityName: "澎湖縣",
         candidates: [
           {
-            name: "吳淑瑾",
-            title: "Facebook 臉書貼文",
-            summary: "",
-            link: "https://www.facebook.com/wushuchin.penghu/posts/pfbid02P61hEYY9x9tXHC1KtCCrvXDRCgCWjpQqtKPm4cgchDBXLqQVCnqYbGfzdCbMPBvpl"
-          },
-          {
+            number: "1",
             name: "許智富",
             title: "Facebook 臉書貼文",
             summary: "",
             link: "https://www.facebook.com/xu.zhi.fu.408382/posts/pfbid02VNzYZrrxZiAdGULTRAVVcpq43oLUxKaDy7BgQjC9be5M4HRCx2twkG6TEkMiKb1Fl"
           },
           {
+            number: "3",
             name: "葉竹林",
             title: "Facebook 臉書貼文",
             summary: "",
             link: "https://www.facebook.com/YEHCHULINinPENGHU/posts/pfbid0SsCTzXBzd2kXoTozyUVq99WTaCzu3miKSEEX7n5516V6keVRnv4UYRyFPikjz9Qdl"
+          },
+          {
+            number: "4",
+            name: "吳淑瑾",
+            title: "Facebook 臉書貼文",
+            summary: "",
+            link: "https://www.facebook.com/wushuchin.penghu/posts/pfbid02P61hEYY9x9tXHC1KtCCrvXDRCgCWjpQqtKPm4cgchDBXLqQVCnqYbGfzdCbMPBvpl"
           }
         ]
       },
@@ -489,6 +515,7 @@
         cityName: "金門縣",
         candidates: [
           {
+            number: "6",
             name: "梁文韜",
             title: "競選政策網站｜金門生物多樣性與生態永續白皮書",
             summary: "金門縣（2027-2030）政策白皮書",
@@ -501,6 +528,7 @@
         cityName: "連江縣",
         candidates: [
           {
+            number: "2",
             name: "曹爾元",
             title: "Facebook 臉書貼文",
             summary: "",
@@ -549,25 +577,34 @@
     }
 
     // 生成候選人卡片 HTML
-    function createCandidateCard(candidate) {
-      return `
-        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-          <div class="space-y-1 w-full">
-            <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight">
-              ${candidate.name}
-            </h3>
-            <p class="text-base font-medium text-[#2D3A48] leading-snug">
-              ${candidate.title}
-            </p>
-            ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-          </div>
-          <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-             class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-            查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-          </a>
+function createCandidateCard(candidate) {
+  return `
+    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+      <!-- 左右兩欄結構 -->
+      <div class="flex items-start gap-3 w-full">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+          ${candidate.number || ''}
         </div>
-      `;
-    }
+        
+        <div class="space-y-1 w-full">
+          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+            ${candidate.name}
+          </h3>
+          <p class="text-base font-medium text-[#2D3A48] leading-snug">
+            ${candidate.title}
+          </p>
+          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+        </div>
+      </div>
+
+      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+      </a>
+    </div>
+  `;
+}
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
