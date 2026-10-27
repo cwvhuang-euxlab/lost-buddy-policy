@@ -31,14 +31,6 @@
       --map-active-fill: #4D49FC;
     }
 
-    html,
-    body {
-      height: 100% !important;
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch;
-      /* 讓 iOS 滑動更順暢 */
-    }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: var(--color-bg-main);
@@ -120,10 +112,6 @@
       pointer-events: none;
     }
 
-    #policy-modal.hidden {
-      display: none !important;
-    }
-
     /* 電腦版維持 Hover 顯示 */
     @media (hover: hover) {
       .tooltip-container:hover .tooltip-content {
@@ -191,8 +179,7 @@
     </div>
 
     <!-- 台灣地圖 SVG 容器 -->
-    <div
-      class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
+    <div class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px] z-20">
         <g id="counties" transform="translate(130 50)">
           <!-- 北部縣市 -->
@@ -243,7 +230,7 @@
 
         </g>
       </svg>
-      <!-- 移到這裡並改為絕對定位 -->
+<!-- 移到這裡並改為絕對定位 -->
       <div
         class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
         <div class="flex items-center gap-2">
@@ -281,12 +268,12 @@
   </main>
 
   <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
-    <p class="text-sm font-normal text-[#2D3A48]">
-      2026 縣市長選舉｜寵物政見整理
-    </p>
-    <p class="text-xs text-[#656565] font-normal">
-      © 2026 Eux Lab. All rights reserved.
-    </p>
+      <p class="text-sm font-normal text-[#2D3A48]">
+        2026 縣市長選舉｜寵物政見整理
+      </p>
+      <p class="text-xs text-[#656565] font-normal">
+        © 2026 Eux Lab. All rights reserved.
+      </p>
   </footer>
 
   <!-- Bottom Sheet (抽屜彈窗) 背景遮罩 -->
@@ -324,26 +311,6 @@
       <!-- 政見卡片列表容器 -->
       <div id="sheet-card-container" class="space-y-3.5">
         <!-- 候選人卡片透過 JS 自動渲染 -->
-      </div>
-
-
-      <!-- 內嵌政見瀏覽 Modal (改為標準 div 標籤，並放在 script 後面、body 結束標籤前) -->
-      <div id="policy-modal" class="fixed inset-0 z-50 flex flex-col bg-white hidden">
-        <!-- Modal 頂部導覽列 -->
-        <div
-          class="flex items-center justify-between px-4 py-3 bg-[#F3F4FB] text-[#201F6A] shrink-0 border-b border-indigo-100 shadow-xs">
-          <div id="modal-title" class="text-sm font-bold truncate pr-4 text-[#201F6A]">瀏覽原始政見</div>
-          <button onclick="closePolicyModal()"
-            class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-indigo-100/80 text-[#201F6A] transition cursor-pointer">
-            <i class="fa-solid fa-xmark text-lg"></i>
-          </button>
-        </div>
-
-
-        <!-- 載入外部網頁的 iframe -->
-        <div class="flex-1 w-full relative bg-stone-100">
-          <iframe id="policy-iframe" src="" class="w-full h-full border-0"></iframe>
-        </div>
       </div>
 
       <!-- 底部聲明注意事項 (字體大小與圖例一致、一般字重 font-normal、顏色採用 #2D3A48，齊左排列) -->
@@ -607,8 +574,8 @@
     }
 
     // 生成候選人卡片 HTML
-    function createCandidateCard(candidate) {
-      return `
+function createCandidateCard(candidate) {
+  return `
     <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
       <!-- 左右兩欄結構 -->
       <div class="flex items-start gap-3 w-full">
@@ -628,51 +595,13 @@
         </div>
       </div>
 
-      <!-- 改為呼叫 handlePolicyClick 進行智慧分流 -->
-      <button onclick="handlePolicyClick('${candidate.link}', '${candidate.name} - ${candidate.title}')" 
-         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
+      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
         查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-      </button>
+      </a>
     </div>
   `;
-    }
-
-    // 點擊按鈕時的處理邏輯（智慧分流）
-    function handlePolicyClick(url, title) {
-      // 檢查是否為 Facebook、Instagram 或設定了反嵌入政策的網站
-      if (
-        url.includes('facebook.com') ||
-        url.includes('instagram.com') ||
-        url.includes('taichungway.tw') ||
-        url.includes('chiao.tw')
-      ) {
-        // 這些不允許 iframe 嵌入的網站，直接用另開視窗交由外部瀏覽器開啟
-        window.open(url, '_blank', 'noopener,noreferrer');
-      } else {
-        // 允許嵌入的政策網站才用內嵌 Modal 視窗開啟
-        openPolicyModal(url, title);
-      }
-    }
-
-    // 開啟內嵌視窗
-    function openPolicyModal(url, title) {
-      const modal = document.getElementById('policy-modal');
-      const iframe = document.getElementById('policy-iframe');
-      const titleEl = document.getElementById('modal-title');
-
-      titleEl.textContent = title;
-      iframe.src = url; // 載入目標網址
-      modal.classList.remove('hidden');
-    }
-
-    // 關閉內嵌視窗
-    function closePolicyModal() {
-      const modal = document.getElementById('policy-modal');
-      const iframe = document.getElementById('policy-iframe');
-
-      modal.classList.add('hidden');
-      iframe.src = ''; // 清空 iframe 停止載入與背景聲音
-    }
+}
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -775,9 +704,6 @@
     });
 
   </script>
-
-
-
 </body>
 
 </html>
