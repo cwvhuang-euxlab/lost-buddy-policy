@@ -574,11 +574,11 @@
       });
     }
 
-    // 生成候選人卡片 HTML
+    // 生成候選人卡片 HTML（透過 JS 控制點擊行為）
     function createCandidateCard(candidate) {
-      // 判斷是否為 FB 或 IG，若是則直接外開（維持原本行為）
       const isSocial = candidate.link.includes('facebook.com') || candidate.link.includes('instagram.com');
 
+      // FB、IG 維持原本的標準外開
       if (isSocial) {
         return `
           <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
@@ -597,7 +597,7 @@
           </div>
         `;
       } else {
-        // 一般網頁使用安全覆蓋層，點擊後不會覆蓋 WebView，確保能安全返回
+        // 一般政策網站：點擊後在同頁開啟，並自動顯示浮動返回按鈕
         return `
           <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
             <div class="flex items-start gap-3 w-full">
@@ -608,7 +608,7 @@
                 ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
               </div>
             </div>
-            <button onclick="openSafePolicyViewer('${candidate.link}', '${candidate.name} - ${candidate.title}')" 
+            <button onclick="openPolicyInWebView('${candidate.link}')" 
                class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
               查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
             </button>
@@ -716,51 +716,47 @@
         });
       });
     });
+    
+    // ==========================================
+    // 政策網站內嵌瀏覽與 Floating Button 控制機制
+    // ==========================================
 
-    // 開啟安全瀏覽覆蓋層（解決網頁嵌入迷路問題）
-    function openSafePolicyViewer(url, title) {
-      let viewer = document.getElementById('safe-policy-viewer');
-      if (!viewer) {
-        const viewerHTML = `
-          <div id="safe-policy-viewer" class="fixed inset-0 z-50 flex flex-col bg-white">
-            <!-- 頂部導覽列：採用要求的 #F3F4FB 底色與 #201F6A 文字 -->
-            <div class="flex items-center justify-between px-4 py-3 bg-[#F3F4FB] text-[#201F6A] shrink-0 border-b border-indigo-100 shadow-sm">
-              <button onclick="closeSafePolicyViewer()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100/80 hover:bg-indigo-200 text-[#201F6A] font-bold text-sm transition cursor-pointer">
-                <i class="fa-solid fa-arrow-left"></i> 返回政策地圖
-              </button>
-              <div id="safe-viewer-title" class="text-xs sm:text-sm font-bold truncate px-2 text-right max-w-[60%]"></div>
-            </div>
-            <!-- 內容顯示區 -->
-            <div class="flex-1 w-full relative bg-stone-50 flex flex-col items-center justify-center p-6 text-center space-y-4">
-              <div class="max-w-md space-y-3 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                <h4 class="text-lg font-extrabold text-[#201F6A]">準備前往外部政見網站</h4>
-                <p class="text-sm text-[#2D3A48] leading-relaxed">
-                  點擊下方按鈕將在新分頁開啟完整政見。看完後直接切換回本 App，即可無縫返回原本的縣市選單！
-                </p>
-                <a id="safe-viewer-link" href="" target="_blank" rel="noopener noreferrer" 
-                   class="w-full py-3 px-4 rounded-xl bg-[#201F6A] hover:bg-[#181652] text-white font-bold text-sm transition shadow-md flex items-center justify-center gap-2 block">
-                  前往觀看原始政見 <i class="fa-solid fa-external-link text-xs"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+    let isViewingPolicy = false;
+
+    function openPolicyInWebView(url) {
+      isViewingPolicy = true;
+
+      // 1. 顯示懸浮返回按鈕 (Floating Button)，符合 #F3F4FB 底色與 #201F6A 文字
+      showFloatingBackBtn();
+
+      // 2. 將當前 WebView 導向候選人的政策網頁
+      window.location.href = url;
+    }
+
+    function showFloatingBackBtn() {
+      let floatBtn = document.getElementById('floating-back-btn');
+      if (!floatBtn) {
+        const btnHTML = `
+          <button id="floating-back-btn" onclick="returnToMapHome()" 
+            class="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#F3F4FB] text-[#201F6A] font-extrabold text-sm shadow-xl border border-indigo-200 hover:bg-indigo-100 transition transform hover:scale-105 cursor-pointer">
+            <i class="fa-solid fa-arrow-left text-base"></i> 返回政策地圖
+          </button>
         `;
-        document.body.insertAdjacentHTML('beforeend', viewerHTML);
-        viewer = document.getElementById('safe-policy-viewer');
-      }
-
-      document.getElementById('safe-viewer-title').textContent = title;
-      document.getElementById('safe-viewer-link').href = url;
-      viewer.classList.remove('hidden');
-    }
-
-    function closeSafePolicyViewer() {
-      const viewer = document.getElementById('safe-policy-viewer');
-      if (viewer) {
-        viewer.remove(); // 徹底移除覆蓋層，原封不動回到 Bottom Sheet 與地圖畫面
+        document.body.insertAdjacentHTML('beforeend', btnHTML);
       }
     }
 
+    function returnToMapHome() {
+      // 點擊懸浮按鈕後，直接返回我們原本部署地圖的網址首頁（記得帶上您的 GitHub Pages 網址）
+      window.location.href = "https://cwvhuang-euxlab.github.io/lost-buddy-policy/2026-pet-policy.html?v=3";
+    }
+
+    // 監聽瀏覽器返回事件，確保使用者如果按上一頁也能正確回到地圖首頁
+    window.addEventListener('popstate', () => {
+      if (isViewingPolicy) {
+        returnToMapHome();
+      }
+    });
   </script>
 </body>
 
