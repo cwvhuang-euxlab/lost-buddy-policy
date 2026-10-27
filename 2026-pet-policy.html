@@ -596,7 +596,8 @@
         </div>
       </div>
 
-      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+      <!-- 改用 onclick 強制觸發外部開啟，繞過 WebView 的連結限制 -->
+      <a href="javascript:void(0);" onclick="window.open('${candidate.link}', '_blank', 'noopener,noreferrer');" 
          class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
         查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
       </a>
@@ -704,19 +705,6 @@
       });
     });
 
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a');
-
-      // 檢查是否為「查看原始政見」按鈕
-      if (link && link.target === '_blank') {
-        e.preventDefault(); // 阻止 WebView 嘗試在同頁面載入
-        const targetUrl = link.href;
-
-        // 直接在當前視窗呼叫另開新視窗
-        // 在 App 的 WebView 中，這通常會自動觸發外部瀏覽器開啟
-        window.open(targetUrl, '_blank', 'noopener,noreferrer');
-      }
-    });
   </script>
 </body>
 
