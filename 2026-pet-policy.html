@@ -574,45 +574,34 @@
     }
 
     // 生成候選人卡片 HTML
-    function createCandidateCard(candidate) {
-      const isSocial = candidate.link.includes('facebook.com') || candidate.link.includes('instagram.com');
-      
-      if (isSocial) {
-        return `
-          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-            <div class="flex items-start gap-3 w-full">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5" style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">${candidate.number || ''}</div>
-              <div class="space-y-1 w-full">
-                <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">${candidate.name}</h3>
-                <p class="text-base font-medium text-[#2D3A48] leading-snug">${candidate.title}</p>
-                ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-              </div>
-            </div>
-            <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
-               class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
-              查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-            </a>
-          </div>
-        `;
-      } else {
-        return `
-          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
-            <div class="flex items-start gap-3 w-full">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5" style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">${candidate.number || ''}</div>
-              <div class="space-y-1 w-full">
-                <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">${candidate.name}</h3>
-                <p class="text-base font-medium text-[#2D3A48] leading-snug">${candidate.title}</p>
-                ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
-              </div>
-            </div>
-            <button onclick="openPolicyModal('${candidate.link}', '${candidate.name}')" 
-               class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs cursor-pointer">
-              查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
-            </button>
-          </div>
-        `;
-      }
-    }
+function createCandidateCard(candidate) {
+  return `
+    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/80 shadow-xs flex flex-col items-start gap-3">
+      <!-- 左右兩欄結構 -->
+      <div class="flex items-start gap-3 w-full">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-md shrink-0 border-2 mt-0.5"
+             style="background-color: #FFFB80; border-color: #DDD968; color: #2E3238;">
+          ${candidate.number || ''}
+        </div>
+        
+        <div class="space-y-1 w-full">
+          <h3 class="text-xl font-extrabold text-[#201F6A] tracking-tight pt-1">
+            ${candidate.name}
+          </h3>
+          <p class="text-base font-medium text-[#2D3A48] leading-snug">
+            ${candidate.title}
+          </p>
+          ${candidate.summary ? `<p class="text-sm text-[#2D3A48] pt-0.5">${candidate.summary}</p>` : ''}
+        </div>
+      </div>
+
+      <a href="${candidate.link}" target="_blank" rel="noopener noreferrer" 
+         class="w-full text-center py-2.5 px-4 rounded-full border border-indigo-200/80 bg-[#EEF0FF] hover:bg-indigo-100/70 text-[#2E3238] font-bold text-base transition flex items-center justify-center gap-2 mt-1 shadow-xs">
+        查看原始政見 <i class="fa-solid fa-arrow-up-right-from-square text-sm text-[#2E3238]"></i>
+      </a>
+    </div>
+  `;
+}
 
     // 開啟 Bottom Sheet
     function openBottomSheet(countyName) {
@@ -713,46 +702,6 @@
         });
       });
     });
-
-    function openPolicyModal(url, candidateName) {
-      // 1. 動態建立全螢幕 Modal 容器
-      let modal = document.getElementById('policy-viewer-modal');
-      if (!modal) {
-        const modalHTML = `
-          <div id="policy-viewer-modal" class="fixed inset-0 z-50 flex flex-col bg-white">
-            <!-- 頂部懸浮 Bar：永遠釘在最上方 (z-50) -->
-            <div class="flex items-center justify-between px-4 py-3 bg-[#F3F4FB] text-[#201F6A] shrink-0 border-b border-indigo-100 shadow-md">
-              <button onclick="closePolicyModal()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-white hover:bg-indigo-50 text-[#201F6A] font-extrabold text-sm border border-indigo-200 transition shadow-xs cursor-pointer">
-                <i class="fa-solid fa-arrow-left"></i> 返回政策地圖
-              </button>
-              <div id="modal-title-text" class="text-sm font-extrabold truncate px-2 text-right text-[#201F6A]"></div>
-            </div>
-            <!-- 網頁呈現區 -->
-            <div class="flex-1 w-full relative bg-stone-100">
-              <iframe id="modal-policy-iframe" src="" class="w-full h-full border-0"></iframe>
-            </div>
-          </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-        modal = document.getElementById('policy-viewer-modal');
-      }
-
-      // 2. 寫入資料並顯示 Modal
-      document.getElementById('modal-title-text').textContent = `${candidateName} 的政見`;
-      document.getElementById('modal-policy-iframe').src = url;
-      modal.classList.remove('hidden');
-    }
-
-    // 關閉 Modal 並安全返回 Bottom Sheet 與地圖
-    function closePolicyModal() {
-      const modal = document.getElementById('policy-viewer-modal');
-      const iframe = document.getElementById('modal-policy-iframe');
-      if (modal) {
-        if (iframe) iframe.src = ''; // 清空 URL 停止播放或載入
-        modal.classList.add('hidden');
-      }
-    }
-
 
   </script>
 </body>
