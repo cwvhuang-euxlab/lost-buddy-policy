@@ -181,39 +181,6 @@
     <!-- 台灣地圖 SVG 容器 -->
     <div
       class="w-full bg-white rounded-3xl p-2 sm:p-6 shadow-sm border border-stone-200/60 flex-1 flex items-center justify-center relative min-h-[360px]">
-      <!-- 移到這裡並改為絕對定位 -->
-      <div
-        class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
-        <div class="flex items-center gap-2">
-          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#B0BCFF;"></span>
-          <span>已有候選人提出具體政見</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#D0D8F5;"></span>
-          <span>目前尚無政見資料</span>
-        </div>
-        <span class="tooltip-container underline decoration-dotted cursor-pointer text-[#201F6A] font-semibold">收錄標準
-          <div class="tooltip-content">
-            <!-- 第一段：收錄標準 -->
-            <div class="space-y-1">
-              <div class="font-bold text-sm text-indigo-200">收錄標準</div>
-              <div class="text-xs leading-relaxed text-slate-100">僅收錄針對 2026 年選舉提出、內容具體的政策，不包含過往紀錄或未具體說明政策內容的表態。</div>
-            </div>
-
-            <!-- 第二段：中立原則 (用 mt-3 增加與上方間距) -->
-            <div class="space-y-1 mt-3">
-              <div class="font-bold text-sm text-indigo-200">中立原則</div>
-              <div class="text-xs leading-relaxed text-slate-100">本頁以資訊整理為主，不對候選人或政見進行排名或評價。</div>
-            </div>
-
-            <!-- 下方分隔線與較不明顯的更新資訊 -->
-            <div class="mt-3 pt-2.5 border-t border-slate-600/60 space-y-1 text-[11px] text-slate-400 leading-normal">
-              <div>資料更新日期：2026 年 10 月 26 日</div>
-              <div>政見資訊可能隨選舉進程更新。若發現遺漏或需要更正，歡迎提供原始來源，協助我們持續更新。</div>
-            </div>
-          </div>
-        </span>
-      </div>
       <svg id="taiwan-map" viewBox="0 0 500 660" class="w-full h-auto max-h-[520px]">
         <g id="counties" transform="translate(150 50)">
           <!-- 北部縣市 -->
@@ -262,15 +229,46 @@
           <path id="TW-TTT" data-name="臺東縣" class="county-path"
             d="M139.84 432.254L142.217 431.915L141.453 428.943L137.717 425.037L135.849 422.235L135 417.226L136.443 411.282L141.708 406.782L144.34 403.216V396.339L146.208 388.273L144.849 382.245L145.443 377.999L149.943 375.537L151.557 372.565L150.198 368.915L150.708 365.433L155.462 362.292L157.925 359.915L161.915 357.452L171.425 355.075L172.104 359.575L175.245 364.584L180 366.282L183.736 368.065L186.793 370.952L190.613 371.547L194.094 372.481L199.698 382.245L206.915 388.188L211.925 388.867L215.915 386.575L216.425 382.839V378.679L218.293 375.028L221.264 366.877L223.472 362.207L225 357.028L226.613 352.952L228.736 349.811L230.943 345.565L230.604 341.405L229.5 337.16L231.877 333.848L238.5 330.622L240.623 331.301L237.821 347.433L236.462 350.405L232.132 356.179L230.519 359.15L229.245 362.886L228.396 369.933L228.481 376.131L227.802 381.99L224.83 388.103L223.557 389.462L220.67 391.584L219.396 392.943L218.717 394.301L217.698 397.867L214.727 403.047L212.943 411.028L211.67 414.594L205.387 423.679L204.623 425.377L196.132 432.509L194.094 434.886L193.755 436.499L194.179 440.32L194.094 442.018L193.33 443.971L191.972 446.179L189.085 449.83L186.198 452.547L176.349 459.169L169.727 466.386L168.113 467.235L166.84 468.933L163.613 477.169L162.085 480.226L157.16 486.424L155.123 490.075L154.019 497.547L151.047 507.82L145.189 518.094L144.34 521.575L143.321 531.424L143.491 540.339L140.774 540.594L134.491 537.707L131.689 534.735L129.736 531.084L129.396 527.348L129.481 523.867L127.528 521.15L125.491 520.131L123.793 517.754L124.132 514.952L125.406 512.575L128.632 510.622L130.16 508.33L127.359 504.933L125.745 501.792V498.565L125.066 494.235L123.877 490.499L123.113 486.509L123.623 477.509L125.491 472.924L127.698 468.848L129.142 464.858L132.453 462.141L137.123 461.122L140.094 459.424L146.038 456.877L147.311 453.905L147.396 450.679L149.094 442.273L145.698 440.065L142.387 439.216L141.962 436.245L139.84 432.254Z" />
 
-
-
         </g>
       </svg>
+<!-- 移到這裡並改為絕對定位 -->
+      <div
+        class="absolute top-4 left-4 z-10 space-y-1.5 text-sm font-medium text-[#2E3238] bg-white/90 backdrop-blur-xs p-2.5 rounded-xl border border-stone-200 shadow-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#B0BCFF;"></span>
+          <span>已有候選人提出具體政見</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3.5 h-3.5 rounded-full inline-block shrink-0 shadow-xs" style="background:#D0D8F5;"></span>
+          <span>目前尚無政見資料</span>
+        </div>
+        <span class="tooltip-container underline decoration-dotted cursor-pointer text-[#201F6A] font-semibold">收錄標準
+          <div class="tooltip-content">
+            <!-- 第一段：收錄標準 -->
+            <div class="space-y-1">
+              <div class="font-bold text-sm text-indigo-200">收錄標準</div>
+              <div class="text-xs leading-relaxed text-slate-100">僅收錄針對 2026 年選舉提出、內容具體的政策，不包含過往紀錄或未具體說明政策內容的表態。</div>
+            </div>
+
+            <!-- 第二段：中立原則 (用 mt-3 增加與上方間距) -->
+            <div class="space-y-1 mt-3">
+              <div class="font-bold text-sm text-indigo-200">中立原則</div>
+              <div class="text-xs leading-relaxed text-slate-100">本頁以資訊整理為主，不對候選人或政見進行排名或評價。</div>
+            </div>
+
+            <!-- 下方分隔線與較不明顯的更新資訊 -->
+            <div class="mt-3 pt-2.5 border-t border-slate-600/60 space-y-1 text-[11px] text-slate-400 leading-normal">
+              <div>資料更新日期：2026 年 10 月 26 日</div>
+              <div>政見資訊可能隨選舉進程更新。若發現遺漏或需要更正，歡迎提供原始來源，協助我們持續更新。</div>
+            </div>
+          </div>
+        </span>
+      </div>
     </div>
 
   </main>
 
-  <footer class="w-full max-w-2xl mx-auto px-4 pb-8 pt-4 text-center">
+  <footer class="w-full max-w-2xl mx-auto px-4 pb-8 text-center">
       <p class="text-sm font-normal text-[#2D3A48]">
         2026 縣市長選舉｜寵物政見整理
       </p>
